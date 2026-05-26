@@ -107,6 +107,7 @@ The `data.json` file must include:
 - skipped duplicates if available
 - measured API-equivalent spend
 - extrapolated weekly API-equivalent value at 100% quota
+- extrapolated monthly API-equivalent value at 100% quota, using `weekly_value * (52 / 12)`
 - effective API ratio
 - effective token prices per 1M
 - approximate error metrics
@@ -118,6 +119,7 @@ The `analysis.md` file must include:
 - subscription used
 - measured API-equivalent spend
 - extrapolated 100% weekly value
+- extrapolated monthly API-equivalent value
 - effective price per 1M tokens
 - important caveats
 - privacy note
@@ -151,6 +153,7 @@ Effective price formula:
 
 weekly_subscription_cost = monthly_subscription_cost / (52 / 12)
 weekly_api_value_at_100pct = measured_api_cost / (used_percent / 100)
+monthly_api_value_at_100pct = weekly_api_value_at_100pct * (52 / 12)
 effective_api_ratio = weekly_subscription_cost / weekly_api_value_at_100pct
 effective_price_per_1m = official_api_price_per_1m * effective_api_ratio
 
@@ -164,6 +167,7 @@ Before opening a PR, check:
 - The result path uses your GitHub username.
 - The weekly limit end date is present.
 - The measurement start and end dates are present.
+- The monthly extrapolation is present.
 - The subscription actually used is present.
 - The API price source or assumption is present.
 - No raw logs are included.

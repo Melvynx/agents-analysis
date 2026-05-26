@@ -146,6 +146,7 @@ def analyze(args: argparse.Namespace) -> dict[str, Any]:
         extra_costs[label] = float(raw_value)
     measured_total = measured_cost + sum(extra_costs.values())
     weekly_api_value = measured_total / (used_percent / 100) if used_percent else 0
+    monthly_api_value = weekly_api_value * (52 / 12)
     effective_ratio = weekly_price / weekly_api_value if weekly_api_value else 0
 
     return {
@@ -190,6 +191,7 @@ def analyze(args: argparse.Namespace) -> dict[str, Any]:
             "extra_costs": extra_costs,
             "measured_total_api_equivalent": measured_total,
             "weekly_api_value_at_100_percent": weekly_api_value,
+            "monthly_api_value_at_100_percent": monthly_api_value,
         },
         "effective_prices": {
             "effective_api_ratio": effective_ratio,
@@ -230,13 +232,14 @@ Subscription actually used: **{data['subscription']['actual_subscription_used']}
 
 Measured Codex usage was **{data['weekly_limit']['used_percent']}%** of the weekly quota, worth about **{money(costs['measured_total_api_equivalent'])} API-equivalent**.
 
-Extrapolated to 100% of the weekly quota, the API-equivalent value is about **{money(costs['weekly_api_value_at_100_percent'])}/week**. The effective price is **{eff['effective_api_percent']:.2f}% of official GPT-5.5 API pricing**.
+Extrapolated to 100% of the weekly quota, the API-equivalent value is about **{money(costs['weekly_api_value_at_100_percent'])}/week**, or **{money(costs['monthly_api_value_at_100_percent'])}/month** using `52 / 12` weeks per month. The effective price is **{eff['effective_api_percent']:.2f}% of official GPT-5.5 API pricing**.
 
 ## Window
 
 - Measurement start: `{data['measurement_window']['start_at']}`
 - Measurement end: `{data['measurement_window']['end_at']}`
 - Weekly limit end: `{data['weekly_limit']['limit_end_at']}`
+- Monthly extrapolation: `{money(costs['monthly_api_value_at_100_percent'])}`
 
 ## Usage
 

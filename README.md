@@ -55,6 +55,7 @@ It includes:
 - API-equivalent spend
 - effective per-1M token prices
 - approximate error metrics
+- monthly API-equivalent extrapolation
 
 ## Contribution Flow
 

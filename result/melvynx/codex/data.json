@@ -12,14 +12,14 @@
   "weekly_limit": {
     "used_percent": 44.0,
     "used_percent_source": "codex_rate_limit_secondary_max_observed",
-    "observed_max_secondary_used_percent": 45.0,
-    "observed_last_secondary_used_percent": 44.0,
+    "observed_max_secondary_used_percent": 46.0,
+    "observed_last_secondary_used_percent": 46.0,
     "limit_start_at": "2026-05-23T21:14:45Z",
     "limit_end_at": "2026-05-30T23:14:45+02:00"
   },
   "measurement_window": {
     "start_at": "2026-05-23T21:14:45Z",
-    "end_at": "2026-05-26T15:09:29.505926Z"
+    "end_at": "2026-05-26T20:34:35.291499Z"
   },
   "api_pricing": {
     "provider": "openai",
@@ -33,43 +33,44 @@
     "pricing_checked_at": "2026-05-26"
   },
   "usage": {
-    "files_scanned": 1142,
-    "sessions": 120,
-    "events": 64693,
-    "token_events": 11598,
-    "input_tokens": 1455568885,
-    "cached_input_tokens": 1401405696,
-    "uncached_input_tokens": 54163189,
-    "output_tokens": 4201090,
-    "reasoning_output_tokens": 1408725,
-    "total_tokens": 1461172224
+    "files_scanned": 1143,
+    "sessions": 121,
+    "events": 65582,
+    "token_events": 11733,
+    "input_tokens": 1474598886,
+    "cached_input_tokens": 1419044352,
+    "uncached_input_tokens": 55554534,
+    "output_tokens": 4240783,
+    "reasoning_output_tokens": 1418670,
+    "total_tokens": 1480268469
   },
   "cost_breakdown_usd": {
-    "uncached_input": 270.815945,
-    "cached_input": 700.702848,
-    "output": 126.03269999999999,
-    "local_total": 1097.551493,
+    "uncached_input": 277.77267,
+    "cached_input": 709.522176,
+    "output": 127.22349000000001,
+    "local_total": 1114.518336,
     "extra_costs": {
       "steveclaw_hermes_adjusted": 60.2682,
       "steveclaw_codex": 0.53
     },
-    "measured_total_api_equivalent": 1158.349693,
-    "weekly_api_value_at_100_percent": 2632.612938636363
+    "measured_total_api_equivalent": 1175.316536,
+    "weekly_api_value_at_100_percent": 2671.1739454545454,
+    "monthly_api_value_at_100_percent": 11575.087096969695
   },
   "effective_prices": {
-    "effective_api_ratio": 0.0175315730909356,
-    "effective_api_percent": 1.7531573090935602,
+    "effective_api_ratio": 0.017278487697285586,
+    "effective_api_percent": 1.7278487697285585,
     "non_fast_per_1m_tokens_usd": {
-      "input": 0.087657865454678,
-      "cached_input": 0.0087657865454678,
-      "output": 0.525947192728068
+      "input": 0.08639243848642793,
+      "cached_input": 0.008639243848642793,
+      "output": 0.5183546309185676
     }
   },
   "errors": {
-    "tool_outputs": 14630,
-    "failed_tool_outputs": 776,
-    "tool_command_error_rate_approx_percent": 5.304169514695831,
-    "assistant_messages": 2521,
+    "tool_outputs": 14841,
+    "failed_tool_outputs": 789,
+    "tool_command_error_rate_approx_percent": 5.316353345461896,
+    "assistant_messages": 2574,
     "assistant_api_error_messages": 0,
     "model_api_error_rate_approx_percent": 0.0
   },
