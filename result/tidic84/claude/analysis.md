@@ -2,11 +2,11 @@
 
 ## Summary
 
-Subscription actually used: **Claude Pro $20/month**.
+Subscription actually used: **Claude Pro \$20/month**.
 
-Measured Claude usage was **45.0%** of the weekly All models quota, worth about **$113.03 API-equivalent**.
+Measured Claude usage was **45.0%** of the weekly All models quota, worth about **\$113.03 API-equivalent**.
 
-Extrapolated to 100% of the weekly quota, the API-equivalent value is about **$251.17/week**. The effective price is **1.84% of official Opus API pricing**.
+Extrapolated to 100% of the weekly quota, the API-equivalent value is about **\$251.17/week**. The effective price is **1.84% of official Opus API pricing**.
 
 ## Window
 
@@ -27,11 +27,11 @@ Extrapolated to 100% of the weekly quota, the API-equivalent value is about **$2
 
 ## Effective Opus Prices
 
-- Input: **$0.09 / 1M**
-- Cache write 5m: **$0.11 / 1M**
-- Cache write 1h: **$0.18 / 1M**
-- Cache read: **$0.01 / 1M**
-- Output: **$0.46 / 1M**
+- Input: **\$0.09 / 1M**
+- Cache write 5m: **\$0.11 / 1M**
+- Cache write 1h: **\$0.18 / 1M**
+- Cache read: **\$0.01 / 1M**
+- Output: **\$0.46 / 1M**
 
 ## Caveats
 

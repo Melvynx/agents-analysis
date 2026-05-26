@@ -2,11 +2,11 @@
 
 ## Summary
 
-Subscription actually used: **ChatGPT Plus $20/month**.
+Subscription actually used: **ChatGPT Plus \$20/month**.
 
-Measured Codex usage was **46.0%** of the weekly quota, worth about **$104.59 API-equivalent**.
+Measured Codex usage was **46.0%** of the weekly quota, worth about **\$104.59 API-equivalent**.
 
-Extrapolated to 100% of the weekly quota, the API-equivalent value is about **$227.37/week**. The effective price is **2.03% of official GPT-5.5 API pricing**.
+Extrapolated to 100% of the weekly quota, the API-equivalent value is about **\$227.37/week**. The effective price is **2.03% of official GPT-5.5 API pricing**.
 
 ## Window
 
@@ -26,9 +26,9 @@ Extrapolated to 100% of the weekly quota, the API-equivalent value is about **$2
 
 ## Effective Prices
 
-- Input: **$0.10 / 1M**
-- Cached input: **$0.01 / 1M**
-- Output: **$0.61 / 1M**
+- Input: **\$0.10 / 1M**
+- Cached input: **\$0.01 / 1M**
+- Output: **\$0.61 / 1M**
 
 ## Caveats
 
