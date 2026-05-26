@@ -31,7 +31,27 @@ result/melvynx/claude/data.json
 result/melvynx/claude/analysis.md
 ```
 
-## Fork And Clone First
+## Start By Asking The User
+
+Before cloning, parsing logs, or running scripts, ask the contributor for the small set of data that makes the analysis reproducible.
+
+Ask these questions first:
+
+```text
+1. What is your GitHub username?
+2. What do you want to calculate: codex, claude, or both?
+3. What subscription do you actually use for each selected tool?
+   Example: OpenAI Pro $200/month, ChatGPT Plus $20/month, Claude Max $100/month, Claude Pro $20/month.
+4. What is the exact monthly subscription price in USD?
+5. What is the weekly usage percentage shown in the UI?
+6. What is the exact weekly limit end/reset date, including timezone?
+7. Are there remote machines or extra agent stores to include?
+   Example: ssh steveclaw with ~/.hermes or ~/.codex.
+```
+
+The user should be involved at the beginning because the local logs do not reliably contain subscription tier, monthly price, or Claude weekly usage percentage.
+
+## Then Fork And Clone
 
 Start every contribution from a fork, so the final result can be submitted as a pull request.
 
@@ -58,9 +78,10 @@ git pull --ff-only upstream main
 git checkout -b add-<github-username>-analysis
 ```
 
-5. Run the analysis prompt or helper scripts.
-6. Commit only your result files under `result/<github-username>/<tool>/`.
-7. Push your branch to your fork and open a pull request back to `Melvynx/agents-analysis`.
+5. Run the analysis prompt or helper scripts using the user's answers.
+6. Show the generated summary to the user before committing, especially subscription name, weekly end date, used percentage, and monthly extrapolation.
+7. Commit only your result files under `result/<github-username>/<tool>/`.
+8. Push your branch to your fork and open a pull request back to `Melvynx/agents-analysis`.
 
 ## Required Inputs
 
@@ -94,6 +115,15 @@ Use this prompt with an agent that can read your local filesystem and browse cur
 
 ```text
 You are a usage and cost analyst. Calculate the effective token price per 1M tokens of my Codex and/or Claude subscription from my local `.codex` and `.claude` folders, then create contribution files for an open source repository.
+
+Before doing any filesystem scan or calculation, ask me for the contributor data if I have not already provided it. Keep the questions short and collect:
+- GitHub username
+- tool to calculate: codex, claude, or both
+- subscription actually used
+- monthly subscription price in USD
+- weekly usage percentage shown in the UI
+- exact weekly limit end/reset date with timezone
+- optional remote machines or extra agent stores to include
 
 I want to calculate: <codex | claude | both>
 My GitHub username is: <github-username>
