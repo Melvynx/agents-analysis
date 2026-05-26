@@ -5,23 +5,19 @@
   },
   "tool": "claude",
   "subscription": {
-    "name": "Claude Max",
     "actual_subscription_used": "Claude Max $100/month",
-    "monthly_price_usd": 100,
-    "weekly_price_usd": 23.0769230769,
-    "notes": "User reported using the $100/month Claude subscription."
+    "monthly_price_usd": 100.0,
+    "weekly_price_usd": 23.07692307692308
   },
   "weekly_limit": {
-    "all_models_used_percent": 8,
-    "sonnet_only_used_percent": 1,
-    "limit_end_at": "2026-05-31T11:00:00+02:00",
-    "limit_start_at": "2026-05-24T11:00:00+02:00",
-    "timezone": "Europe/Zurich"
+    "all_models_used_percent": 8.0,
+    "used_percent_source": "user_ui_last_known",
+    "limit_start_at": "2026-05-24T09:00:00Z",
+    "limit_end_at": "2026-05-31T11:00:00+02:00"
   },
   "measurement_window": {
     "start_at": "2026-05-24T09:00:00Z",
-    "end_at": "2026-05-26T11:03:28Z",
-    "notes": "The weekly start is 7 days before the UI reset time. The end is when the local calculation was taken."
+    "end_at": "2026-05-26T15:08:50.814375Z"
   },
   "api_pricing": {
     "provider": "anthropic",
@@ -29,77 +25,92 @@
     "pricing_checked_at": "2026-05-26",
     "currency": "USD",
     "per_1m_tokens": {
-      "input": 5,
-      "cache_write_5m": 6.25,
-      "cache_write_1h": 10,
-      "cache_read": 0.5,
-      "output": 25
+      "opus": {
+        "input": 5.0,
+        "cache_write_5m": 6.25,
+        "cache_write_1h": 10.0,
+        "cache_read": 0.5,
+        "output": 25.0
+      },
+      "sonnet": {
+        "input": 3.0,
+        "cache_write_5m": 3.75,
+        "cache_write_1h": 6.0,
+        "cache_read": 0.3,
+        "output": 15.0
+      },
+      "haiku": {
+        "input": 1.0,
+        "cache_write_5m": 1.25,
+        "cache_write_1h": 2.0,
+        "cache_read": 0.1,
+        "output": 5.0
+      }
     }
   },
-  "sources": {
-    "local_claude_projects": true,
-    "raw_logs_published": false
-  },
   "usage": {
-    "sessions": 25,
-    "raw_assistant_usage_events": 1780,
-    "deduped_assistant_requests": 875,
-    "duplicates_skipped": 905,
+    "files_scanned": 9619,
+    "sessions": 35,
+    "raw_assistant_usage_events": 2659,
+    "deduped_assistant_requests": 1323,
+    "duplicates_skipped": 1336,
     "requests_by_model": {
-      "claude-opus-4-7": 800,
-      "claude-sonnet-4-6": 68,
+      "claude-opus-4-7": 1137,
+      "claude-sonnet-4-6": 90,
+      "claude-haiku-4-5-20251001": 89,
+      "<synthetic>": 7
+    },
+    "requests_by_family": {
+      "opus": 1137,
+      "sonnet": 90,
+      "haiku": 89,
       "synthetic": 7
     },
     "tokens": {
-      "input_tokens": 4648,
-      "cache_creation_input_tokens": 4909889,
-      "cache_write_1h_tokens": 4490641,
-      "cache_write_5m_tokens": 419248,
-      "cache_read_input_tokens": 90792690,
-      "output_tokens": 467597
+      "input_tokens": 46938,
+      "cache_creation_input_tokens": 7622390,
+      "cache_write_5m_tokens": 1199849,
+      "cache_write_1h_tokens": 6422541,
+      "cache_read_input_tokens": 137162906,
+      "output_tokens": 796418
     }
   },
   "cost_breakdown_usd": {
     "by_model": {
-      "claude-opus-4-7": 100.911628,
-      "claude-sonnet-4-6": 2.234755,
-      "synthetic": 0
+      "claude-opus-4-7": 151.19085050000012,
+      "claude-sonnet-4-6": 3.1243831499999994,
+      "claude-haiku-4-5-20251001": 0.8105807000000002,
+      "<synthetic>": 0.0
     },
-    "measured_total_api_equivalent": 103.146383,
-    "weekly_api_value_at_100_percent": 1289.3297875
+    "by_family": {
+      "opus": 151.19085050000012,
+      "sonnet": 3.1243831499999994,
+      "haiku": 0.8105807000000002,
+      "synthetic": 0.0
+    },
+    "measured_total_api_equivalent": 155.12581435000013,
+    "weekly_api_value_at_100_percent": 1939.0726793750016
   },
   "effective_prices": {
-    "effective_api_ratio": 0.0178983866662,
-    "effective_api_percent": 1.78983866662,
+    "effective_api_ratio": 0.011901009860218954,
+    "effective_api_percent": 1.1901009860218954,
     "opus_non_fast_per_1m_tokens_usd": {
-      "input": 0.08949193333,
-      "cache_write_5m": 0.11186491666,
-      "cache_write_1h": 0.17898386666,
-      "cache_read": 0.00894919333,
-      "output": 0.44745966665
-    },
-    "fast_assumption": {
-      "multiplier": 6,
-      "notes": "Fast multiplier was treated as a quota-consumption or effective-price assumption."
-    },
-    "opus_fast_per_1m_tokens_usd": {
-      "input": 0.53695159999,
-      "cache_write_5m": 0.67118949998,
-      "cache_write_1h": 1.07390319997,
-      "cache_read": 0.05369515999,
-      "output": 2.68475799993
+      "input": 0.05950504930109477,
+      "cache_write_5m": 0.07438131162636846,
+      "cache_write_1h": 0.11901009860218954,
+      "cache_read": 0.005950504930109477,
+      "output": 0.29752524650547385
     }
   },
   "errors": {
-    "synthetic_request_rate_percent": 0.8,
-    "api_error_rate_approx_percent": 0.7,
-    "notes": "Synthetic requests were costed at zero. Most synthetic error examples were temporary API overload messages."
+    "synthetic_requests": 7,
+    "synthetic_request_rate_percent": 0.5291005291005291,
+    "synthetic_api_error_requests": 6,
+    "api_error_rate_approx_percent": 0.45351473922902497
   },
   "assumptions": [
     "API-equivalent value is not Anthropic's real cost.",
-    "Opus 4.7 pricing was used as the primary baseline because most usage was Opus.",
-    "Assistant usage rows were deduplicated by requestId.",
-    "The weekly limit percentage came from the user's UI screenshot/text.",
-    "Logs from machines not included in the scan are not represented."
+    "Assistant usage rows are deduplicated by requestId when available.",
+    "Claude usage percentage is not stored in local logs and usually must come from the UI."
   ]
 }

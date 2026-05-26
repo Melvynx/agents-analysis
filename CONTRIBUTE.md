@@ -168,3 +168,37 @@ Before opening a PR, check:
 - The API price source or assumption is present.
 - No raw logs are included.
 - No private prompts are included.
+
+## Optional Helper Scripts
+
+You can use the scripts in this repository instead of writing your own parser.
+
+Codex:
+
+```bash
+scripts/analyze_codex.py \
+  --username <github-username> \
+  --subscription "OpenAI Pro $200/month" \
+  --monthly-price 200 \
+  --used-percent <weekly-used-percent> \
+  --start "<weekly-window-start-iso>" \
+  --limit-end "<weekly-limit-end-iso>" \
+  --output-dir result/<github-username>/codex
+```
+
+Claude:
+
+```bash
+scripts/analyze_claude.py \
+  --username <github-username> \
+  --subscription "Claude Max $100/month" \
+  --monthly-price 100 \
+  --used-percent <weekly-used-percent> \
+  --start "<weekly-window-start-iso>" \
+  --limit-end "<weekly-limit-end-iso>" \
+  --output-dir result/<github-username>/claude
+```
+
+The scripts output JSON to stdout and write `data.json` plus `analysis.md` when `--output-dir` is provided.
+
+For Codex, `--extra-cost label=value` can be used to include additional API-equivalent costs from a remote machine or another agent log store.

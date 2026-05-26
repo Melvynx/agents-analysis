@@ -5,102 +5,77 @@
   },
   "tool": "codex",
   "subscription": {
-    "name": "OpenAI Pro",
     "actual_subscription_used": "OpenAI Pro $200/month",
-    "monthly_price_usd": 200,
-    "weekly_price_usd": 46.1538461538,
-    "notes": "User reported paying $200/month for Codex/OpenAI Pro usage."
+    "monthly_price_usd": 200.0,
+    "weekly_price_usd": 46.15384615384616
   },
   "weekly_limit": {
-    "used_percent": 43,
-    "remaining_percent": 57,
-    "limit_end_at": "2026-05-30T23:14:45+02:00",
-    "limit_start_at": "2026-05-23T23:14:45+02:00",
-    "timezone": "Europe/Zurich"
+    "used_percent": 44.0,
+    "used_percent_source": "codex_rate_limit_secondary_max_observed",
+    "observed_max_secondary_used_percent": 45.0,
+    "observed_last_secondary_used_percent": 44.0,
+    "limit_start_at": "2026-05-23T21:14:45Z",
+    "limit_end_at": "2026-05-30T23:14:45+02:00"
   },
   "measurement_window": {
     "start_at": "2026-05-23T21:14:45Z",
-    "end_at": "2026-05-26T10:54:51Z",
-    "notes": "The weekly start is 7 days before the UI reset time. The end is when the local calculation was taken."
+    "end_at": "2026-05-26T15:09:29.505926Z"
   },
   "api_pricing": {
     "provider": "openai",
     "model_baseline": "gpt-5.5",
-    "pricing_checked_at": "2026-05-26",
     "currency": "USD",
     "per_1m_tokens": {
-      "input": 5,
+      "input": 5.0,
       "cached_input": 0.5,
-      "output": 30
-    }
-  },
-  "sources": {
-    "local_codex_sessions": true,
-    "local_codex_archived_sessions": true,
-    "remote_hermes_steveclaw": true,
-    "remote_codex_steveclaw": true,
-    "raw_logs_published": false
+      "output": 30.0
+    },
+    "pricing_checked_at": "2026-05-26"
   },
   "usage": {
-    "local_codex": {
-      "sessions": 116,
-      "events": 11315,
-      "token_events": 11315,
-      "input_tokens": 1426702842,
-      "cached_input_tokens": 1374140672,
-      "uncached_input_tokens": 52562170,
-      "output_tokens": 4084868,
-      "reasoning_output_tokens": 1377122,
-      "total_tokens": 1432052143
-    },
-    "remote_hermes_steveclaw": {
-      "adjusted_sessions": 89,
-      "adjusted_api_equivalent_cost_usd": 60.2682,
-      "notes": "Hermes sessions crossing the weekly boundary were prorated by assistant-message ratio after the reset."
-    },
-    "remote_codex_steveclaw": {
-      "api_equivalent_cost_usd": 0.53,
-      "notes": "Remote .codex usage was negligible compared with local and Hermes usage."
-    }
+    "files_scanned": 1142,
+    "sessions": 120,
+    "events": 64693,
+    "token_events": 11598,
+    "input_tokens": 1455568885,
+    "cached_input_tokens": 1401405696,
+    "uncached_input_tokens": 54163189,
+    "output_tokens": 4201090,
+    "reasoning_output_tokens": 1408725,
+    "total_tokens": 1461172224
   },
   "cost_breakdown_usd": {
-    "local_uncached_input": 262.81085,
-    "local_cached_input": 687.070336,
-    "local_output": 122.54604,
-    "local_total": 1072.4272,
-    "remote_hermes_adjusted": 60.2682,
-    "remote_codex": 0.53,
-    "measured_total_api_equivalent": 1133.23,
-    "weekly_api_value_at_100_percent": 2635.42
+    "uncached_input": 270.815945,
+    "cached_input": 700.702848,
+    "output": 126.03269999999999,
+    "local_total": 1097.551493,
+    "extra_costs": {
+      "steveclaw_hermes_adjusted": 60.2682,
+      "steveclaw_codex": 0.53
+    },
+    "measured_total_api_equivalent": 1158.349693,
+    "weekly_api_value_at_100_percent": 2632.612938636363
   },
   "effective_prices": {
-    "effective_api_ratio": 0.0175129089824,
-    "effective_api_percent": 1.75129089824,
+    "effective_api_ratio": 0.0175315730909356,
+    "effective_api_percent": 1.7531573090935602,
     "non_fast_per_1m_tokens_usd": {
-      "input": 0.0875645449,
-      "cached_input": 0.00875645449,
-      "output": 0.5253872695
-    },
-    "fast_assumption": {
-      "multiplier": 2.5,
-      "notes": "Fast multiplier was treated as a quota-consumption assumption."
-    },
-    "fast_per_1m_tokens_usd": {
-      "input": 0.2189113623,
-      "cached_input": 0.02189113623,
-      "output": 1.3134681737
+      "input": 0.087657865454678,
+      "cached_input": 0.0087657865454678,
+      "output": 0.525947192728068
     }
   },
   "errors": {
-    "tool_command_error_rate_approx_percent": 5.3,
-    "model_api_error_rate_approx_percent": 0,
-    "notes": "Tool error rate was estimated from local function_call_output events with non-zero process exit codes. Model/API errors were not detected in assistant messages for the sampled window."
+    "tool_outputs": 14630,
+    "failed_tool_outputs": 776,
+    "tool_command_error_rate_approx_percent": 5.304169514695831,
+    "assistant_messages": 2521,
+    "assistant_api_error_messages": 0,
+    "model_api_error_rate_approx_percent": 0.0
   },
   "assumptions": [
     "API-equivalent value is not OpenAI's real cost.",
-    "Official GPT-5.5 prices were used as the fixed model baseline.",
-    "The weekly limit percentage came from the user's UI screenshot/text.",
-    "Remote Hermes data was included because the user indicated it also consumed limits.",
-    "Logs from machines not included in the scan are not represented."
+    "GPT-5.5 official API pricing is used as the baseline.",
+    "Codex token totals are summed from last_token_usage to avoid cumulative double counting."
   ]
 }

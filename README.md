@@ -10,6 +10,8 @@ This repository currently focuses on:
 - Claude Code usage from `.claude` logs.
 - Effective price per 1M tokens.
 - Weekly quota extrapolation from the usage percentage shown in the product UI.
+- Small helper scripts to recompute results faster.
+- Markdown pricing references for the model baselines used in examples.
 
 API-equivalent value is not the provider's real cost. It is the price a user would roughly pay if the same token mix were reproduced through official public API pricing.
 
@@ -65,6 +67,47 @@ It includes:
 7. Open a pull request.
 
 Do not commit private conversation content. The result files should contain aggregate usage data only.
+
+## Helper Scripts
+
+The scripts are intentionally plain Python with no external dependencies.
+
+Codex:
+
+```bash
+scripts/analyze_codex.py \
+  --username <github-username> \
+  --subscription "OpenAI Pro $200/month" \
+  --monthly-price 200 \
+  --used-percent 43 \
+  --start "2026-05-23T21:14:45Z" \
+  --limit-end "2026-05-30T23:14:45+02:00" \
+  --output-dir result/<github-username>/codex
+```
+
+Claude:
+
+```bash
+scripts/analyze_claude.py \
+  --username <github-username> \
+  --subscription "Claude Max $100/month" \
+  --monthly-price 100 \
+  --used-percent 8 \
+  --start "2026-05-24T09:00:00Z" \
+  --limit-end "2026-05-31T11:00:00+02:00" \
+  --output-dir result/<github-username>/claude
+```
+
+The weekly limit end date is not optional in the contribution workflow. It is what makes the report reproducible.
+
+## Pricing References
+
+Pricing snapshots used by the examples live in:
+
+- `docs/pricing/openai.md`
+- `docs/pricing/anthropic.md`
+
+Always re-check official pricing before publishing a new result.
 
 ## Privacy Notes
 
