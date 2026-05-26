@@ -85,7 +85,8 @@
       "haiku": 0.3402188
     },
     "measured_total_api_equivalent": 113.02771329999982,
-    "weekly_api_value_at_100_percent": 251.17269622222182
+    "weekly_api_value_at_100_percent": 251.17269622222182,
+    "monthly_api_value_at_100_percent": 1088.415016962961
   },
   "effective_prices": {
     "effective_api_ratio": 0.01837534367708986,

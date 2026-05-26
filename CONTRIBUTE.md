@@ -31,6 +31,37 @@ result/melvynx/claude/data.json
 result/melvynx/claude/analysis.md
 ```
 
+## Fork And Clone First
+
+Start every contribution from a fork, so the final result can be submitted as a pull request.
+
+1. Fork `https://github.com/Melvynx/agents-analysis` to your own GitHub account.
+2. Clone your fork locally:
+
+```bash
+git clone https://github.com/<github-username>/agents-analysis.git
+cd agents-analysis
+```
+
+3. Add the upstream repository:
+
+```bash
+git remote add upstream https://github.com/Melvynx/agents-analysis.git
+git fetch upstream
+git checkout main
+git pull --ff-only upstream main
+```
+
+4. Create a branch for your result:
+
+```bash
+git checkout -b add-<github-username>-analysis
+```
+
+5. Run the analysis prompt or helper scripts.
+6. Commit only your result files under `result/<github-username>/<tool>/`.
+7. Push your branch to your fork and open a pull request back to `Melvynx/agents-analysis`.
+
 ## Required Inputs
 
 Before running the analysis, collect these values from the product UI:

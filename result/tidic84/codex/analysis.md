@@ -6,13 +6,14 @@ Subscription actually used: **ChatGPT Plus \$20/month**.
 
 Measured Codex usage was **46.0%** of the weekly quota, worth about **\$104.59 API-equivalent**.
 
-Extrapolated to 100% of the weekly quota, the API-equivalent value is about **\$227.37/week**. The effective price is **2.03% of official GPT-5.5 API pricing**.
+Extrapolated to 100% of the weekly quota, the API-equivalent value is about **\$227.37/week**, or **\$985.27/month** using `52 / 12` weeks per month. The effective price is **2.03% of official GPT-5.5 API pricing**.
 
 ## Window
 
 - Measurement start: `2026-04-13T00:00:00Z`
 - Measurement end: `2026-04-20T00:00:00Z`
 - Weekly limit end: `2026-04-20T00:00:00+00:00`
+- Monthly extrapolation: `\$985.27`
 
 ## Usage
 

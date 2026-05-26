@@ -6,13 +6,14 @@ Subscription actually used: **Claude Pro \$20/month**.
 
 Measured Claude usage was **45.0%** of the weekly All models quota, worth about **\$113.03 API-equivalent**.
 
-Extrapolated to 100% of the weekly quota, the API-equivalent value is about **\$251.17/week**. The effective price is **1.84% of official Opus API pricing**.
+Extrapolated to 100% of the weekly quota, the API-equivalent value is about **\$251.17/week**, or **\$1,088.42/month** using `52 / 12` weeks per month. The effective price is **1.84% of official Opus API pricing**.
 
 ## Window
 
 - Measurement start: `2026-05-25T00:00:00Z`
 - Measurement end: `2026-05-26T19:20:02.802833Z`
 - Weekly limit end: `2026-06-01T00:00:00+00:00`
+- Monthly extrapolation: `\$1,088.42`
 
 ## Usage
 

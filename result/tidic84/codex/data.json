@@ -51,7 +51,8 @@
     "local_total": 104.589811,
     "extra_costs": {},
     "measured_total_api_equivalent": 104.589811,
-    "weekly_api_value_at_100_percent": 227.36915434782608
+    "weekly_api_value_at_100_percent": 227.36915434782608,
+    "monthly_api_value_at_100_percent": 985.2663355072463
   },
   "effective_prices": {
     "effective_api_ratio": 0.020299079831752668,
