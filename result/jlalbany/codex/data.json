@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "contributor": {
+    "github_username": "jlalbany"
+  },
+  "tool": "codex",
+  "subscription": {
+    "actual_subscription_used": "OpenAI Pro EUR 114/month (~USD 133.94 at ECB 2026-05-27 EUR/USD 1.1749)",
+    "monthly_price_usd": 133.94,
+    "weekly_price_usd": 30.90923076923077
+  },
+  "weekly_limit": {
+    "used_percent": 83.0,
+    "used_percent_source": "ChatGPT UI screenshot: weekly limit 17% remaining on 2026-05-27",
+    "observed_max_secondary_used_percent": 83.0,
+    "observed_last_secondary_used_percent": 83.0,
+    "limit_start_at": "2026-05-23T20:00:00Z",
+    "limit_end_at": "2026-05-30T22:00:00+02:00"
+  },
+  "measurement_window": {
+    "start_at": "2026-05-23T20:00:00Z",
+    "end_at": "2026-05-27T15:18:27Z"
+  },
+  "api_pricing": {
+    "provider": "openai",
+    "model_baseline": "gpt-5.5",
+    "currency": "USD",
+    "per_1m_tokens": {
+      "input": 5.0,
+      "cached_input": 0.5,
+      "output": 30.0
+    },
+    "pricing_checked_at": "2026-05-27"
+  },
+  "usage": {
+    "files_scanned": 361,
+    "sessions": 219,
+    "events": 101801,
+    "token_events": 25928,
+    "input_tokens": 3325790039,
+    "cached_input_tokens": 3195828096,
+    "uncached_input_tokens": 129961943,
+    "output_tokens": 10304564,
+    "reasoning_output_tokens": 3625690,
+    "total_tokens": 3339472712
+  },
+  "cost_breakdown_usd": {
+    "uncached_input": 649.809715,
+    "cached_input": 1597.914048,
+    "output": 309.13692,
+    "local_total": 2556.860683,
+    "extra_costs": {},
+    "measured_total_api_equivalent": 2556.860683,
+    "weekly_api_value_at_100_percent": 3080.555039759036,
+    "monthly_api_value_at_100_percent": 13349.07183895582
+  },
+  "effective_prices": {
+    "effective_api_ratio": 0.010033656393183132,
+    "effective_api_percent": 1.0033656393183132,
+    "non_fast_per_1m_tokens_usd": {
+      "input": 0.05016828196591566,
+      "cached_input": 0.005016828196591566,
+      "output": 0.30100969179549397
+    }
+  },
+  "errors": {
+    "tool_outputs": 15155,
+    "failed_tool_outputs": 0,
+    "tool_command_error_rate_approx_percent": 0.0,
+    "assistant_messages": 4509,
+    "assistant_api_error_messages": 2,
+    "model_api_error_rate_approx_percent": 0.04435573297848747
+  },
+  "assumptions": [
+    "API-equivalent value is not OpenAI's real cost.",
+    "GPT-5.5 official API pricing is used as the baseline.",
+    "Codex token totals are summed from last_token_usage to avoid cumulative double counting.",
+    "OpenAI API pricing was checked on 2026-05-27 from https://platform.openai.com/docs/pricing.",
+    "Subscription price comes from the ChatGPT UI screenshot: 114 EUR/month, converted to USD using ECB EUR/USD 1.1749 for 2026-05-27.",
+    "The ChatGPT UI screenshot exposed the weekly reset date as 30 mai but did not expose the exact reset time, so the limit end is recorded as 2026-05-30T22:00:00+02:00 and should be treated as an approximation."
+  ]
+}
