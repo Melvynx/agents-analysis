@@ -10,16 +10,16 @@
     "weekly_price_usd": 46.15384615384616
   },
   "weekly_limit": {
-    "used_percent": 44.0,
-    "used_percent_source": "codex_rate_limit_secondary_max_observed",
-    "observed_max_secondary_used_percent": 46.0,
-    "observed_last_secondary_used_percent": 46.0,
-    "limit_start_at": "2026-05-23T21:14:45Z",
-    "limit_end_at": "2026-05-30T23:14:45+02:00"
+    "used_percent": 62.0,
+    "used_percent_source": "user_ui_38_percent_remaining",
+    "observed_max_secondary_used_percent": 62.0,
+    "observed_last_secondary_used_percent": 62.0,
+    "limit_start_at": "2026-05-23T21:14:00Z",
+    "limit_end_at": "2026-05-30T23:14:00+02:00"
   },
   "measurement_window": {
-    "start_at": "2026-05-23T21:14:45Z",
-    "end_at": "2026-05-26T20:34:35.291499Z"
+    "start_at": "2026-05-23T21:14:00Z",
+    "end_at": "2026-05-28T09:35:22Z"
   },
   "api_pricing": {
     "provider": "openai",
@@ -30,53 +30,79 @@
       "cached_input": 0.5,
       "output": 30.0
     },
-    "pricing_checked_at": "2026-05-26"
+    "pricing_checked_at": "2026-05-28"
   },
   "usage": {
-    "files_scanned": 1143,
-    "sessions": 121,
-    "events": 65582,
-    "token_events": 11733,
-    "input_tokens": 1474598886,
-    "cached_input_tokens": 1419044352,
-    "uncached_input_tokens": 55554534,
-    "output_tokens": 4240783,
-    "reasoning_output_tokens": 1418670,
-    "total_tokens": 1480268469
+    "files_scanned": 1222,
+    "sessions": 198,
+    "events": 85269,
+    "token_events": 14816,
+    "input_tokens": 1816517695,
+    "cached_input_tokens": 1742029568,
+    "uncached_input_tokens": 74488127,
+    "output_tokens": 5302509,
+    "reasoning_output_tokens": 1781567,
+    "total_tokens": 1823549407
   },
   "cost_breakdown_usd": {
-    "uncached_input": 277.77267,
-    "cached_input": 709.522176,
-    "output": 127.22349000000001,
-    "local_total": 1114.518336,
+    "uncached_input": 372.44063500000004,
+    "cached_input": 871.014784,
+    "output": 159.07527,
+    "local_total": 1402.530689,
     "extra_costs": {
-      "steveclaw_hermes_adjusted": 60.2682,
-      "steveclaw_codex": 0.53
+      "steveclaw_hermes_state_db_adjusted": 104.6072,
+      "steveclaw_codex": 4.8493
     },
-    "measured_total_api_equivalent": 1175.316536,
-    "weekly_api_value_at_100_percent": 2671.1739454545454,
-    "monthly_api_value_at_100_percent": 11575.087096969695
+    "measured_total_api_equivalent": 1511.987189,
+    "weekly_api_value_at_100_percent": 2438.6890145161287,
+    "monthly_api_value_at_100_percent": 10567.652396236557
   },
   "effective_prices": {
-    "effective_api_ratio": 0.017278487697285586,
-    "effective_api_percent": 1.7278487697285585,
+    "effective_api_ratio": 0.018925679280596484,
+    "effective_api_percent": 1.8925679280596484,
     "non_fast_per_1m_tokens_usd": {
-      "input": 0.08639243848642793,
-      "cached_input": 0.008639243848642793,
-      "output": 0.5183546309185676
+      "input": 0.09462839640298243,
+      "cached_input": 0.009462839640298242,
+      "output": 0.5677703784178946
     }
   },
   "errors": {
-    "tool_outputs": 14841,
-    "failed_tool_outputs": 789,
-    "tool_command_error_rate_approx_percent": 5.316353345461896,
-    "assistant_messages": 2574,
+    "tool_outputs": 19816,
+    "failed_tool_outputs": 1051,
+    "tool_command_error_rate_approx_percent": 5.303794913201453,
+    "assistant_messages": 3528,
     "assistant_api_error_messages": 0,
     "model_api_error_rate_approx_percent": 0.0
   },
+  "extra_agent_stores_checked": [
+    {
+      "machine": "ssh steveclaw",
+      "path": "~/.hermes/state.db",
+      "sessions_touching_window": 172,
+      "api_calls": 1863,
+      "input_tokens": 7650456,
+      "cache_read_tokens": 123253973,
+      "output_tokens": 781045,
+      "reasoning_tokens": 276636,
+      "api_equivalent_cost_usd": 104.6072,
+      "notes": "Hermes stores aggregate usage in state.db. Sessions crossing the window were prorated by assistant-message ratio when they started before the window."
+    },
+    {
+      "machine": "ssh steveclaw",
+      "path": "~/.codex",
+      "sessions": 3,
+      "token_events": 55,
+      "input_tokens": 5296115,
+      "cached_input_tokens": 4910080,
+      "output_tokens": 15469,
+      "reasoning_output_tokens": 4449,
+      "api_equivalent_cost_usd": 4.8493
+    }
+  ],
   "assumptions": [
     "API-equivalent value is not OpenAI's real cost.",
     "GPT-5.5 official API pricing is used as the baseline.",
-    "Codex token totals are summed from last_token_usage to avoid cumulative double counting."
+    "Codex token totals are summed from last_token_usage to avoid cumulative double counting.",
+    "Remote Hermes state.db usage was converted from aggregate session totals and prorated for sessions crossing the weekly window."
   ]
 }

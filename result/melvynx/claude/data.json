@@ -10,19 +10,19 @@
     "weekly_price_usd": 23.07692307692308
   },
   "weekly_limit": {
-    "all_models_used_percent": 8.0,
-    "used_percent_source": "user_ui_last_known",
+    "all_models_used_percent": 28.0,
+    "used_percent_source": "user_ui_all_models",
     "limit_start_at": "2026-05-24T09:00:00Z",
     "limit_end_at": "2026-05-31T11:00:00+02:00"
   },
   "measurement_window": {
     "start_at": "2026-05-24T09:00:00Z",
-    "end_at": "2026-05-26T20:34:35.291501Z"
+    "end_at": "2026-05-28T09:35:22Z"
   },
   "api_pricing": {
     "provider": "anthropic",
     "model_baseline": "claude-opus-4.7",
-    "pricing_checked_at": "2026-05-26",
+    "pricing_checked_at": "2026-05-28",
     "currency": "USD",
     "per_1m_tokens": {
       "opus": {
@@ -49,69 +49,98 @@
     }
   },
   "usage": {
-    "files_scanned": 9655,
-    "sessions": 56,
-    "raw_assistant_usage_events": 3981,
-    "deduped_assistant_requests": 2042,
-    "duplicates_skipped": 1939,
+    "files_scanned": 9658,
+    "sessions": 59,
+    "raw_assistant_usage_events": 4098,
+    "deduped_assistant_requests": 2081,
+    "duplicates_skipped": 2017,
     "requests_by_model": {
-      "claude-opus-4-7": 1822,
+      "claude-opus-4-7": 1861,
       "claude-sonnet-4-6": 96,
       "claude-haiku-4-5-20251001": 117,
       "<synthetic>": 7
     },
     "requests_by_family": {
-      "opus": 1822,
+      "opus": 1861,
       "sonnet": 96,
       "haiku": 117,
       "synthetic": 7
     },
     "tokens": {
-      "input_tokens": 53164,
-      "cache_creation_input_tokens": 9658991,
+      "input_tokens": 53228,
+      "cache_creation_input_tokens": 10603811,
       "cache_write_5m_tokens": 1377579,
-      "cache_write_1h_tokens": 8281412,
-      "cache_read_input_tokens": 216881398,
-      "output_tokens": 1170382
+      "cache_write_1h_tokens": 9226232,
+      "cache_read_input_tokens": 228234725,
+      "output_tokens": 1215449
     }
   },
   "cost_breakdown_usd": {
     "by_model": {
-      "claude-opus-4-7": 218.3205835000002,
+      "claude-opus-4-7": 234.57244200000022,
       "claude-sonnet-4-6": 3.3039814499999993,
       "claude-haiku-4-5-20251001": 1.1125677000000003,
       "<synthetic>": 0.0
     },
     "by_family": {
-      "opus": 218.3205835000002,
+      "opus": 234.57244200000022,
       "sonnet": 3.3039814499999993,
       "haiku": 1.1125677000000003,
       "synthetic": 0.0
     },
-    "measured_total_api_equivalent": 222.7371326500002,
-    "weekly_api_value_at_100_percent": 2784.2141581250025,
-    "monthly_api_value_at_100_percent": 12064.928018541677
+    "measured_total_api_equivalent": 238.98899115000023,
+    "weekly_api_value_at_100_percent": 853.5321112500008,
+    "monthly_api_value_at_100_percent": 3698.639148750003
   },
   "effective_prices": {
-    "effective_api_ratio": 0.00828848707976687,
-    "effective_api_percent": 0.8288487079766871,
+    "effective_api_ratio": 0.02703697116108127,
+    "effective_api_percent": 2.703697116108127,
     "opus_non_fast_per_1m_tokens_usd": {
-      "input": 0.041442435398834354,
-      "cache_write_5m": 0.05180304424854294,
-      "cache_write_1h": 0.08288487079766871,
-      "cache_read": 0.004144243539883435,
-      "output": 0.20721217699417177
+      "input": 0.13518485580540635,
+      "cache_write_5m": 0.16898106975675795,
+      "cache_write_1h": 0.2703697116108127,
+      "cache_read": 0.013518485580540635,
+      "output": 0.6759242790270318
     }
   },
   "errors": {
     "synthetic_requests": 7,
-    "synthetic_request_rate_percent": 0.3428011753183154,
+    "synthetic_request_rate_percent": 0.3363767419509851,
     "synthetic_api_error_requests": 6,
-    "api_error_rate_approx_percent": 0.2938295788442703
+    "api_error_rate_approx_percent": 0.2883229216722729
   },
   "assumptions": [
     "API-equivalent value is not Anthropic's real cost.",
     "Assistant usage rows are deduplicated by requestId when available.",
-    "Claude usage percentage is not stored in local logs and usually must come from the UI."
+    "Claude usage percentage is not stored in local logs and usually must come from the UI.",
+    "Remote ssh steveclaw Claude stores were checked, but no Claude assistant usage rows were present in the selected window.",
+    "The primary local Claude sessions came from the 2026-05-27 Claude Code backup because the current ~/.claude/projects folder only contains a small post-backup subset."
+  ],
+  "source_roots_checked": [
+    {
+      "path": "/Users/melvynx/.config/backups/claude-code/2026-05-27_06-51-38/projects",
+      "role": "primary restored Claude Code session source",
+      "files_scanned": 9655,
+      "sessions": 56,
+      "deduped_assistant_requests": 2068,
+      "measured_api_equivalent_usd": 237.86610565000024
+    },
+    {
+      "path": "/Users/melvynx/.claude/projects",
+      "role": "current local Claude Code sessions after the backup timestamp",
+      "files_scanned": 3,
+      "sessions": 3,
+      "deduped_assistant_requests": 13,
+      "measured_api_equivalent_usd": 1.1228855
+    },
+    {
+      "machine": "ssh steveclaw",
+      "path": "/root/.claude/projects",
+      "role": "remote check",
+      "files_scanned": 85,
+      "deduped_assistant_requests": 0,
+      "measured_api_equivalent_usd": 0,
+      "notes": "No assistant usage rows were present in the selected Claude measurement window."
+    }
   ]
 }
