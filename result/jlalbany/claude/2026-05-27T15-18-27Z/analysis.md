@@ -1,4 +1,4 @@
-# Claude Effective Token Price, jlalbany
+# Claude Effective Token Price, jlalbany, 2026-05-27T15-18-27Z
 
 ## Summary
 
@@ -10,6 +10,7 @@ Extrapolated to 100% of the weekly quota, the API-equivalent value is about **$1
 
 ## Window
 
+- Analysis run: `2026-05-27T15:18:27Z`
 - Measurement start: `2026-05-26T17:00:00Z`
 - Measurement end: `2026-05-27T15:18:27Z`
 - Weekly limit end: `2026-06-02T19:00:00+02:00`

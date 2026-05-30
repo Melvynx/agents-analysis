@@ -1,4 +1,4 @@
-# Claude Effective Token Price, melvynx
+# Claude Effective Token Price, melvynx, 2026-05-28T09-35-22Z
 
 ## Summary
 
@@ -10,6 +10,7 @@ Extrapolated to 100% of the weekly quota, the API-equivalent value is about **$8
 
 ## Window
 
+- Analysis run: `2026-05-28T09:35:22Z`
 - Measurement start: `2026-05-24T09:00:00Z`
 - Measurement end: `2026-05-28T09:35:22Z`
 - Weekly limit end: `2026-05-31T11:00:00+02:00`

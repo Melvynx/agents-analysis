@@ -37,6 +37,14 @@ def money(value: float) -> str:
     return f"${value:,.2f}"
 
 
+def format_analysis_id(value: datetime) -> str:
+    return value.astimezone(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z").replace(":", "-")
+
+
+def output_dir_for(output_root: Path, analysis_id: str) -> Path:
+    return output_root if output_root.name == analysis_id else output_root / analysis_id
+
+
 def iter_codex_files(codex_home: Path) -> list[Path]:
     files: list[Path] = []
     for pattern in ("sessions/**/*.jsonl", "archived_sessions/*.jsonl"):
@@ -57,6 +65,7 @@ def analyze(args: argparse.Namespace) -> dict[str, Any]:
     codex_home = Path(args.codex_home).expanduser()
     start = parse_dt(args.start)
     end = parse_dt(args.end) if args.end else datetime.now(timezone.utc)
+    analysis_id = args.analysis_id or format_analysis_id(end)
     monthly_price = float(args.monthly_price)
     weekly_price = monthly_price / (52 / 12)
     used_percent = float(args.used_percent)
@@ -151,6 +160,11 @@ def analyze(args: argparse.Namespace) -> dict[str, Any]:
 
     return {
         "schema_version": "1.0",
+        "analysis_run": {
+            "id": analysis_id,
+            "created_at": end.isoformat().replace("+00:00", "Z"),
+            "output_directory_name": analysis_id,
+        },
         "contributor": {"github_username": args.username},
         "tool": "codex",
         "subscription": {
@@ -219,12 +233,13 @@ def analyze(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def write_outputs(data: dict[str, Any], output_dir: Path) -> None:
+    output_dir = output_dir_for(output_dir, data["analysis_run"]["output_directory_name"])
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "data.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
     usage = data["usage"]
     costs = data["cost_breakdown_usd"]
     eff = data["effective_prices"]
-    analysis = f"""# Codex Effective Token Price, {data['contributor']['github_username']}
+    analysis = f"""# Codex Effective Token Price, {data['contributor']['github_username']}, {data['analysis_run']['id']}
 
 ## Summary
 
@@ -236,6 +251,7 @@ Extrapolated to 100% of the weekly quota, the API-equivalent value is about **{m
 
 ## Window
 
+- Analysis run: `{data['analysis_run']['created_at']}`
 - Measurement start: `{data['measurement_window']['start_at']}`
 - Measurement end: `{data['measurement_window']['end_at']}`
 - Weekly limit end: `{data['weekly_limit']['limit_end_at']}`
@@ -279,6 +295,7 @@ def main() -> None:
     parser.add_argument("--username", required=True)
     parser.add_argument("--pricing-checked-at", default=datetime.now(timezone.utc).date().isoformat())
     parser.add_argument("--extra-cost", action="append", help="Extra API-equivalent cost as label=value.")
+    parser.add_argument("--analysis-id", help="Timestamped output folder name. Defaults to the measurement end time in UTC.")
     parser.add_argument("--output-dir")
     args = parser.parse_args()
 

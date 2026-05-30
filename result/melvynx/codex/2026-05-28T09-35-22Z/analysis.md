@@ -1,4 +1,4 @@
-# Codex Effective Token Price, melvynx
+# Codex Effective Token Price, melvynx, 2026-05-28T09-35-22Z
 
 ## Summary
 
@@ -10,6 +10,7 @@ Extrapolated to 100% of the weekly quota, the API-equivalent value is about **$2
 
 ## Window
 
+- Analysis run: `2026-05-28T09:35:22Z`
 - Measurement start: `2026-05-23T21:14:00Z`
 - Measurement end: `2026-05-28T09:35:22Z`
 - Weekly limit end: `2026-05-30T23:14:00+02:00`

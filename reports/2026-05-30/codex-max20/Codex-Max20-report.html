@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Codex $200 Plan · Token Value</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #000000;
+    --gray-1: #fafafa;
+    --gray-2: #f2f2f2;
+    --border: #eaeaea;
+    --border-2: #e0e0e0;
+    --muted: #666666;
+    --faint: #999999;
+    --accent: #000000;
+    --accent-2: #999999;
+    --accent-3: #d4d4d4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Geist', -apple-system, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "cv01","cv02","ss01";
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* generic label */
+  .eyebrow {
+    font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--faint);
+  }
+
+  /* top nav */
+  .topnav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--border); }
+  .topnav a { color: var(--muted); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 7px; }
+  .topnav a:hover { color: var(--fg); }
+  .topnav .right { display: flex; gap: 20px; }
+  .topnav .active { color: var(--fg); font-weight: 600; }
+
+  /* Header */
+  header { padding: 72px 0 56px; border-bottom: 1px solid var(--border); }
+  .tagline { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+  .tagline .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--fg); }
+  h1 {
+    font-size: clamp(32px, 5.5vw, 56px); font-weight: 600; letter-spacing: -0.035em;
+    line-height: 1.04; max-width: 16ch;
+  }
+  h1 .muted2 { color: var(--faint); }
+  .lede { color: var(--muted); font-size: clamp(15px, 2vw, 18px); margin-top: 22px; max-width: 56ch; }
+
+  /* Hero stats */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat { padding: 36px 28px; border-right: 1px solid var(--border); }
+  .stat:last-child { border-right: none; }
+  .stat .k { font-family: 'Geist Mono', monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint); }
+  .stat .v { font-size: 40px; font-weight: 600; letter-spacing: -0.03em; margin-top: 14px; line-height: 1; }
+  .stat .v .u { font-size: 16px; color: var(--faint); font-weight: 500; letter-spacing: 0; }
+  .stat .d { font-size: 13px; color: var(--muted); margin-top: 12px; }
+
+  /* Sections */
+  section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+  .sec-head { margin-bottom: 40px; }
+  .sec-head h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 600; letter-spacing: -0.025em; margin-top: 14px; }
+  .sec-head p { color: var(--muted); margin-top: 14px; max-width: 64ch; font-size: 15px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+
+  .panel { border: 1px solid var(--border); border-radius: 12px; padding: 24px; background: var(--bg); }
+  .panel .ptitle { font-size: 14px; font-weight: 600; }
+  .panel .psub { font-family:'Geist Mono',monospace; font-size: 11.5px; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; margin-top: 4px; }
+  .chart-box { position: relative; height: 320px; margin-top: 16px; }
+  .chart-box.sm { height: 270px; }
+
+  /* price list */
+  .plist { width: 100%; border-collapse: collapse; }
+  .plist th { text-align: right; font-family:'Geist Mono',monospace; font-weight: 500; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint); padding-bottom: 16px; }
+  .plist th:first-child { text-align: left; }
+  .plist td { padding: 18px 0; border-top: 1px solid var(--border); font-size: 16px; text-align: right; }
+  .plist td:first-child { text-align: left; font-weight: 500; }
+  .plist tr:first-child td { border-top: none; }
+  .plist .without { color: var(--faint); text-decoration: line-through; text-decoration-thickness: 1px; }
+  .plist .with { font-weight: 600; }
+  .plist .save { font-family:'Geist Mono',monospace; font-size: 13px; color: var(--fg); }
+
+  .note { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--border); font-size: 14px; color: var(--muted); }
+  .note b { color: var(--fg); font-weight: 600; }
+
+  /* token table */
+  .ttable { width: 100%; border-collapse: collapse; }
+  .ttable th { font-family:'Geist Mono',monospace; font-weight: 500; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint); text-align: right; padding: 22px 24px 16px; }
+  .ttable th:first-child { text-align: left; }
+  .ttable td { padding: 18px 24px; border-top: 1px solid var(--border); font-size: 15px; text-align: right; vertical-align: middle; }
+  .ttable td:first-child { text-align: left; font-weight: 500; }
+  .ttable .rate { color: var(--muted); font-family:'Geist Mono',monospace; font-size: 13px; }
+  .ttable .tok .big { display: block; font-weight: 500; }
+  .ttable .tok .sub { display: block; font-family:'Geist Mono',monospace; font-size: 11px; color: var(--faint); margin-top: 3px; }
+  .ttable .total td { border-top: 1.5px solid var(--border-2); font-weight: 600; }
+  .bar-cell { display: flex; align-items: center; gap: 12px; justify-content: flex-end; }
+  .vbar { flex: 1; max-width: 130px; height: 6px; background: var(--gray-2); border-radius: 3px; overflow: hidden; }
+  .vbar span { display: block; height: 100%; border-radius: 3px; }
+  .pct { font-family:'Geist Mono',monospace; font-size: 12.5px; width: 46px; text-align: right; }
+
+  /* legend */
+  .legend { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 18px; }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .legend i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+  .legend i.line { height: 0; border-top: 2px dashed var(--faint); width: 14px; border-radius: 0; }
+
+  /* facts */
+  .facts { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .fact { padding: 32px 24px; border-right: 1px solid var(--border); }
+  .fact:last-child { border-right: none; }
+  .fact .v { font-size: 34px; font-weight: 600; letter-spacing: -0.03em; }
+  .fact .k { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+  footer { padding: 56px 0 90px; }
+  footer .eyebrow { margin-bottom: 22px; display: block; }
+  footer ul { list-style: none; display: grid; gap: 14px; max-width: 76ch; }
+  footer li { font-size: 14px; color: var(--muted); padding-left: 22px; position: relative; }
+  footer li::before { content: ""; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; background: var(--border-2); border-radius: 50%; }
+  footer li .mono { color: var(--fg); }
+  footer .sig { margin-top: 34px; font-size: 13px; color: var(--faint); }
+
+  @media (max-width: 860px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--border); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .facts { grid-template-columns: 1fr 1fr; }
+    .fact:nth-child(2) { border-right: none; }
+    .fact:nth-child(1), .fact:nth-child(2) { border-bottom: 1px solid var(--border); }
+  }
+  @media (max-width: 480px) {
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topnav">
+    <a href="../index.html">← All reports</a>
+    <div class="right">
+      <a class="active" href="#">Codex $200</a>
+      <a href="../claude-max20/Claude-Max20-report.html">Claude Max 20x</a>
+      <a href="../real-analysis.html">Real analysis</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="tagline">
+      <span class="dot"></span>
+      <span class="eyebrow">OpenAI Pro · $200 / mo · Codex</span>
+    </div>
+    <h1>Your $200 plan does <span class="muted2">$8,600/month</span> of API work.</h1>
+    <p class="lede">What tokens actually cost on the subscription versus the official GPT-5.5 API price - and how much value the plan returns. One real week of usage.</p>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats num">
+    <div class="stat">
+      <div class="k">You pay</div>
+      <div class="v">$200<span class="u"> /mo</span></div>
+      <div class="d">≈ $46.15 per weekly window</div>
+    </div>
+    <div class="stat">
+      <div class="k">API-equivalent value</div>
+      <div class="v">$8,610<span class="u"> /mo</span></div>
+      <div class="d">Same tokens at API price</div>
+    </div>
+    <div class="stat">
+      <div class="k">Value multiplier</div>
+      <div class="v">43×</div>
+      <div class="d">Return on the subscription</div>
+    </div>
+    <div class="stat">
+      <div class="k">Effective price</div>
+      <div class="v">2.3%</div>
+      <div class="d">of official GPT-5.5 pricing</div>
+    </div>
+  </div>
+
+  <!-- PRICE -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Price per token</span>
+      <h2>With the subscription vs. without</h2>
+      <p>Every token runs against your flat $200 fee. Priced at OpenAI's public GPT-5.5 rates, here's what the same tokens would cost on the raw API versus what they effectively cost you.</p>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="ptitle">USD per 1M tokens</div>
+        <div class="psub">Log scale</div>
+        <div class="chart-box">
+          <canvas id="priceChart"></canvas>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--accent-3)"></i> Without sub (API list)</span>
+          <span><i style="background:var(--fg)"></i> With sub (effective)</span>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ptitle">The numbers</div>
+        <div class="psub">Per 1M tokens</div>
+        <table class="plist num" style="margin-top:18px">
+          <thead>
+            <tr><th>Token type</th><th>Without</th><th>With sub</th><th>Save</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Input</td><td class="without">$5.00</td><td class="with">$0.116</td><td class="save">97.7%</td></tr>
+            <tr><td>Cached input</td><td class="without">$0.50</td><td class="with">$0.0116</td><td class="save">97.7%</td></tr>
+            <tr><td>Output</td><td class="without">$30.00</td><td class="with">$0.697</td><td class="save">97.7%</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Output tokens listed at <b>$30 / 1M</b> on the API effectively cost <b>$0.70 / 1M</b> on the plan - about <b>43× cheaper</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE OVER TIME -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Value delivered</span>
+      <h2>What the plan is worth as you use it</h2>
+      <p>Four snapshots of one weekly window. As quota usage climbs from 44% to 99%, the API-equivalent value compounds far past the $46/week you actually pay.</p>
+    </div>
+    <div class="panel">
+      <div class="chart-box" style="height:360px">
+        <canvas id="valueChart"></canvas>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--fg)"></i> API-equivalent value</span>
+        <span><i class="line"></i> Quota used %</span>
+        <span><i class="line" style="border-top-style:solid;border-color:var(--fg)"></i> What you pay ($46.15/wk)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREAKDOWN + PLAN -->
+  <section>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="ptitle">Cost breakdown</div>
+        <div class="psub">Where the API value comes from</div>
+        <div class="chart-box sm">
+          <canvas id="breakdownChart"></canvas>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ptitle">$20 vs $200 plan</div>
+        <div class="psub">Monthly API-equivalent value</div>
+        <div class="chart-box sm">
+          <canvas id="planChart"></canvas>
+        </div>
+        <p class="note">The $20 ChatGPT Plus sample returns ~$985/mo of value; the $200 Pro plan returns ~$8,610/mo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOKENS BEHIND VALUE -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Tokens behind the value</span>
+      <h2>The volume that produces it</h2>
+      <p>2.54 billion tokens in one week. Cache reads dominate the count but cost almost nothing - the thin slice of fresh input and output is where most of the API value sits.</p>
+    </div>
+    <div class="panel" style="padding:0; overflow-x:auto">
+      <table class="ttable num">
+        <thead>
+          <tr><th>Token type</th><th>Tokens</th><th>API rate</th><th>API value</th><th>Share of value</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cached input</td>
+            <td class="tok"><span class="big">2.42B</span><span class="sub">95.5% of volume</span></td>
+            <td class="rate">$0.50 / 1M</td>
+            <td>$1,211.55</td>
+            <td><div class="bar-cell"><div class="vbar"><span style="width:61.7%;background:var(--fg)"></span></div><span class="pct">61.7%</span></div></td>
+          </tr>
+          <tr>
+            <td>Uncached input</td>
+            <td class="tok"><span class="big">105.5M</span><span class="sub">4.2% of volume</span></td>
+            <td class="rate">$5.00 / 1M</td>
+            <td>$527.59</td>
+            <td><div class="bar-cell"><div class="vbar"><span style="width:26.9%;background:var(--accent-2)"></span></div><span class="pct">26.9%</span></div></td>
+          </tr>
+          <tr>
+            <td>Output</td>
+            <td class="tok"><span class="big">7.44M</span><span class="sub">0.3% of volume</span></td>
+            <td class="rate">$30.00 / 1M</td>
+            <td>$223.17</td>
+            <td><div class="bar-cell"><div class="vbar"><span style="width:11.4%;background:var(--accent-3)"></span></div><span class="pct">11.4%</span></div></td>
+          </tr>
+          <tr class="total">
+            <td>Total</td>
+            <td class="tok"><span class="big">2.54B</span></td>
+            <td class="rate">-</td>
+            <td>$1,962.31</td>
+            <td><div class="bar-cell"><div class="vbar"><span style="width:100%;background:var(--border-2)"></span></div><span class="pct">100%</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="border-top:none;padding-top:16px">Output is just <b>0.3%</b> of the tokens but <b>11.4%</b> of the value - it lists at <b>$30 / 1M</b>, 60× the cached-input rate.</p>
+  </section>
+
+  <!-- FACTS -->
+  <section style="border-bottom:none">
+    <div class="sec-head">
+      <span class="eyebrow">The raw numbers</span>
+      <h2>One week of usage</h2>
+    </div>
+    <div class="facts num">
+      <div class="fact"><div class="v">2.54B</div><div class="k">Total tokens</div></div>
+      <div class="fact"><div class="v">95.8%</div><div class="k">Input from cache</div></div>
+      <div class="fact"><div class="v">349</div><div class="k">Sessions</div></div>
+      <div class="fact"><div class="v">$1,967</div><div class="k">API value this window</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="eyebrow">How this is calculated</span>
+    <ul>
+      <li>API-equivalent value prices real token counts at OpenAI's public GPT-5.5 rates: <span class="mono">$5</span> input · <span class="mono">$0.50</span> cached input · <span class="mono">$30</span> output, per 1M tokens.</li>
+      <li>Effective rate = weekly price ($46.15) ÷ API value at 100% quota. Effective per-token prices are the list prices scaled by that ratio.</li>
+      <li>Monthly figures extrapolate the weekly window using 52/12 weeks per month - a value estimate, not OpenAI's actual cost.</li>
+      <li>Fast vs non-fast mode is not split; source logs only expose aggregate token counters. Source: <span class="mono">result/melvynx/codex/2026-05-30T09-13-16Z</span>.</li>
+    </ul>
+    <div class="sig">Codex $200 Plan · Token Value Report · generated from agents-analysis data.</div>
+  </footer>
+
+</div>
+
+<script>
+  Chart.defaults.font.family = "Geist, system-ui, sans-serif";
+  Chart.defaults.color = "#999999";
+  Chart.defaults.font.size = 12;
+  const FG = "#000000", G1 = "#999999", G2 = "#d4d4d4", GRID = "#eaeaea";
+  const fmtUSD = (v) => "$" + v.toLocaleString("en-US", { maximumFractionDigits: v < 1 ? 4 : 0 });
+
+  // 1. PRICE
+  new Chart(document.getElementById("priceChart"), {
+    type: "bar",
+    data: {
+      labels: ["Input", "Cached input", "Output"],
+      datasets: [
+        { label: "Without sub", data: [5.0, 0.5, 30.0], backgroundColor: G2, borderRadius: 4, barPercentage: 0.72, categoryPercentage: 0.7 },
+        { label: "With sub", data: [0.116, 0.0116, 0.697], backgroundColor: FG, borderRadius: 4, barPercentage: 0.72, categoryPercentage: 0.7 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { backgroundColor: "#000", padding: 10, cornerRadius: 8, callbacks: { label: (c) => c.dataset.label + ": $" + c.parsed.y + " / 1M" } }
+      },
+      scales: {
+        x: { grid: { display: false }, border: { color: GRID } },
+        y: { type: "logarithmic", grid: { color: GRID }, border: { display: false },
+             ticks: { callback: (v) => ([0.01,0.1,1,10,30].includes(v) ? "$"+v : "") } }
+      }
+    }
+  });
+
+  // 2. VALUE
+  new Chart(document.getElementById("valueChart"), {
+    data: {
+      labels: ["26 May · 44%", "28 May · 62%", "30 May · 99%", "30 May · 99%"],
+      datasets: [
+        { type: "bar", label: "API-equivalent value", yAxisID: "y",
+          data: [1175.32, 1511.99, 1945.15, 1967.16], backgroundColor: FG, borderRadius: 6, barPercentage: 0.5 },
+        { type: "line", label: "Quota used %", yAxisID: "y1",
+          data: [44, 62, 99, 99], borderColor: G1, borderDash: [3,3], borderWidth: 1.5,
+          pointRadius: 3, pointBackgroundColor: "#fff", pointBorderColor: G1, pointBorderWidth: 1.5, tension: .3 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { backgroundColor: "#000", padding: 10, cornerRadius: 8,
+          callbacks: { label: (c) => c.dataset.yAxisID === "y1" ? c.parsed.y + "% quota" : "API value: " + fmtUSD(c.parsed.y) } }
+      },
+      scales: {
+        x: { grid: { display: false }, border: { color: GRID }, ticks: { font: { family: "Geist Mono", size: 11 } } },
+        y: { grid: { color: GRID }, border: { display: false }, ticks: { callback: (v) => "$"+v.toLocaleString() } },
+        y1: { position: "right", min: 0, max: 100, grid: { display: false }, border: { display: false }, ticks: { callback: (v)=>v+"%" } }
+      }
+    },
+    plugins: [{
+      id: "payLine",
+      afterDraw(chart) {
+        const { ctx, chartArea: { left, right }, scales: { y } } = chart;
+        const yPos = y.getPixelForValue(46.15);
+        ctx.save();
+        ctx.strokeStyle = FG; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(left, yPos); ctx.lineTo(right, yPos); ctx.stroke();
+        ctx.fillStyle = FG; ctx.font = "500 11px 'Geist Mono', monospace";
+        ctx.fillText("you pay $46.15 / week", left + 6, yPos - 7);
+        ctx.restore();
+      }
+    }]
+  });
+
+  // 3. BREAKDOWN
+  new Chart(document.getElementById("breakdownChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["Cached input", "Uncached input", "Output"],
+      datasets: [{ data: [1211.55, 527.59, 223.17], backgroundColor: [FG, G1, G2], borderColor: "#fff", borderWidth: 3, hoverOffset: 6 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: "64%",
+      plugins: {
+        legend: { position: "bottom", labels: { padding: 16, boxWidth: 10, boxHeight: 10, usePointStyle: true, pointStyle: "circle", color: "#666" } },
+        tooltip: { backgroundColor: "#000", padding: 10, cornerRadius: 8, callbacks: { label: (c) => c.label + ": " + fmtUSD(c.parsed) } }
+      }
+    }
+  });
+
+  // 4. PLAN
+  new Chart(document.getElementById("planChart"), {
+    type: "bar",
+    data: {
+      labels: ["$20 Plus", "$200 Pro"],
+      datasets: [{ data: [985, 8610], backgroundColor: [G2, FG], borderRadius: 6, barPercentage: 0.5 }]
+    },
+    options: {
+      indexAxis: "y", responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { backgroundColor: "#000", padding: 10, cornerRadius: 8, callbacks: { label: (c) => fmtUSD(c.parsed.x) + " / mo value" } }
+      },
+      scales: {
+        x: { grid: { color: GRID }, border: { display: false }, ticks: { callback: (v) => "$"+(v/1000)+"k" } },
+        y: { grid: { display: false }, border: { color: GRID }, ticks: { font: { family: "Geist Mono", size: 13 } } }
+      }
+    }
+  });
+</script>
+</body>
+</html>

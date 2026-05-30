@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agent Plan Value · Report Runs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg:#fff; --fg:#000; --gray-1:#fafafa; --border:#eaeaea; --border-2:#e0e0e0; --muted:#666; --faint:#999; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Geist',system-ui,sans-serif; background:var(--bg); color:var(--fg); line-height:1.5; -webkit-font-smoothing:antialiased; min-height:100vh; }
+  .wrap { max-width:760px; margin:0 auto; padding:0 24px; }
+  .mono { font-family:'Geist Mono',monospace; }
+  .eyebrow { font-family:'Geist Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--faint); }
+
+  header { padding:100px 0 48px; border-bottom:1px solid var(--border); }
+  .tagline { display:flex; align-items:center; gap:10px; margin-bottom:26px; }
+  .tagline .dot { width:6px; height:6px; border-radius:50%; background:var(--fg); }
+  h1 { font-size:clamp(32px,5vw,50px); font-weight:600; letter-spacing:-0.035em; line-height:1.05; max-width:16ch; }
+  .lede { color:var(--muted); font-size:clamp(15px,2vw,18px); margin-top:20px; max-width:52ch; }
+
+  .runs { padding:48px 0; }
+  .runs h2 { font-family:'Geist Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--faint); margin-bottom:22px; }
+  .run {
+    display:flex; align-items:center; justify-content:space-between; gap:20px; text-decoration:none; color:inherit;
+    border:1px solid var(--border); border-radius:14px; padding:26px 28px;
+    transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+  }
+  .run:hover { border-color:var(--fg); transform:translateY(-2px); box-shadow:0 8px 30px rgba(0,0,0,.06); }
+  .run .left .date { font-size:22px; font-weight:600; letter-spacing:-0.02em; }
+  .run .left .meta { color:var(--muted); font-size:14px; margin-top:8px; }
+  .run .left .tags { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+  .run .left .tags span { font-family:'Geist Mono',monospace; font-size:11px; color:var(--muted); background:var(--gray-1); border:1px solid var(--border); padding:4px 9px; border-radius:7px; }
+  .run .arrow { font-size:20px; color:var(--faint); transition:transform .15s ease; flex-shrink:0; }
+  .run:hover .arrow { transform:translateX(4px); color:var(--fg); }
+
+  footer { padding:30px 0 90px; color:var(--faint); font-size:13px; border-top:1px solid var(--border); }
+  footer a { color:var(--muted); text-decoration:none; } footer a:hover { color:var(--fg); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="tagline"><span class="dot"></span><span class="eyebrow">agents-analysis · token value reports</span></div>
+    <h1>What is your $200 AI plan really worth?</h1>
+    <p class="lede">Real-usage breakdowns of subscription value versus official API pricing, captured as dated runs.</p>
+  </header>
+
+  <div class="runs">
+    <h2>Report runs</h2>
+    <a class="run" href="2026-05-30/index.html">
+      <div class="left">
+        <div class="date">2026-05-30</div>
+        <div class="meta">Codex $200 vs Claude Max 20x, plus the methodology audit (cache vs real work).</div>
+        <div class="tags"><span>Codex $200</span><span>Claude Max 20x</span><span>★ Real analysis</span></div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <footer>
+    Generated from <span class="mono">result/*/*/data.json</span> · API-equivalent value is not the provider's real cost. ·
+    <a href="https://github.com/Melvynx/agents-analysis">github.com/Melvynx/agents-analysis</a>
+  </footer>
+
+</div>
+</body>
+</html>

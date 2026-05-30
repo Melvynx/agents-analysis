@@ -1,4 +1,4 @@
-# Claude Effective Token Price, tidic84
+# Claude Effective Token Price, tidic84, 2026-05-26T19-20-02Z
 
 ## Summary
 
@@ -10,6 +10,7 @@ Extrapolated to 100% of the weekly quota, the API-equivalent value is about **\$
 
 ## Window
 
+- Analysis run: `2026-05-26T19:20:02.802833Z`
 - Measurement start: `2026-05-25T00:00:00Z`
 - Measurement end: `2026-05-26T19:20:02.802833Z`
 - Weekly limit end: `2026-06-01T00:00:00+00:00`

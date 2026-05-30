@@ -21,11 +21,13 @@ API-equivalent value is not the provider's real cost. It is the price a user wou
 result/
   <github-username>/
     codex/
-      data.json
-      analysis.md
+      <analysis-timestamp>/
+        data.json
+        analysis.md
     claude/
-      data.json
-      analysis.md
+      <analysis-timestamp>/
+        data.json
+        analysis.md
 CONTRIBUTE.md
 README.md
 ```
@@ -33,15 +35,17 @@ README.md
 Each contributor should add results under their own GitHub username:
 
 ```text
-result/alice/codex/data.json
-result/alice/codex/analysis.md
-result/alice/claude/data.json
-result/alice/claude/analysis.md
+result/alice/codex/2026-05-30T21-14-45Z/data.json
+result/alice/codex/2026-05-30T21-14-45Z/analysis.md
+result/alice/claude/2026-05-30T21-14-45Z/data.json
+result/alice/claude/2026-05-30T21-14-45Z/analysis.md
 ```
+
+Each analysis run is stored in its own timestamped folder under the selected tool. This allows multiple analyses during the same weekly quota window without overwriting earlier results. Use the measurement end time in UTC for the folder name, formatted like `YYYY-MM-DDTHH-MM-SSZ`.
 
 ## Example Included
 
-The first example is under:
+The first example is under timestamped folders inside:
 
 - `result/melvynx/codex/`
 - `result/melvynx/claude/`
@@ -61,11 +65,12 @@ It includes:
 
 1. Read `CONTRIBUTE.md`.
 2. Choose the tool you want to analyze: `codex`, `claude`, or both.
-3. Give the agent your weekly limit end date. This matters because the start date is usually `end date - 7 days`.
-4. Let the agent verify current API prices from official docs.
-5. Let the agent parse your local `.codex` and/or `.claude` logs.
-6. Add your results under `result/<github-username>/<tool>/`.
-7. Open a pull request.
+3. Provide all required preflight data: GitHub username, subscription name, monthly price, weekly usage percentage, weekly reset date, and reset timezone.
+4. Do not start cloning, parsing, or calculating until every required value is known.
+5. Let the agent verify current API prices from official docs.
+6. Let the agent parse your local `.codex` and/or `.claude` logs.
+7. Add your results under `result/<github-username>/<tool>/<analysis-timestamp>/`.
+8. Open a pull request.
 
 Do not commit private conversation content. The result files should contain aggregate usage data only.
 
@@ -99,7 +104,9 @@ scripts/analyze_claude.py \
   --output-dir result/<github-username>/claude
 ```
 
-The weekly limit end date is not optional in the contribution workflow. It is what makes the report reproducible.
+When `--output-dir` points to `result/<github-username>/<tool>`, the scripts create a timestamped child folder automatically. Pass `--analysis-id YYYY-MM-DDTHH-MM-SSZ` only when you need to reproduce a specific folder name.
+
+The weekly usage percentage and weekly limit end date are not optional in the contribution workflow. They are what make the report calculable and reproducible.
 
 ## Pricing References
 

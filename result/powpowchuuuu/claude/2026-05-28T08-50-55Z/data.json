@@ -1,5 +1,10 @@
 {
   "schema_version": "1.0",
+  "analysis_run": {
+    "id": "2026-05-28T08-50-55Z",
+    "created_at": "2026-05-28T08:50:55.124137Z",
+    "output_directory_name": "2026-05-28T08-50-55Z"
+  },
   "contributor": {
     "github_username": "powpowchuuuu"
   },

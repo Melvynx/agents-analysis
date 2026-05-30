@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agent Plan Value · Reports</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #000000; --gray-1: #fafafa;
+    --border: #eaeaea; --border-2: #e0e0e0; --muted: #666666; --faint: #999999;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Geist', -apple-system, system-ui, sans-serif;
+    background: var(--bg); color: var(--fg); line-height: 1.5;
+    -webkit-font-smoothing: antialiased; min-height: 100vh;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: 'Geist Mono', monospace; }
+  .num { font-variant-numeric: tabular-nums; }
+  .eyebrow { font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); }
+
+  header { padding: 96px 0 56px; border-bottom: 1px solid var(--border); }
+  .tagline { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; }
+  .tagline .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--fg); }
+  h1 { font-size: clamp(34px, 6vw, 60px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.03; max-width: 14ch; }
+  .lede { color: var(--muted); font-size: clamp(15px, 2vw, 18px); margin-top: 22px; max-width: 54ch; }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 56px 0; }
+  .card {
+    display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    border: 1px solid var(--border); border-radius: 16px; padding: 30px; background: var(--bg);
+    transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover { border-color: var(--fg); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.06); }
+  .card .tool { font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint); }
+  .card h2 { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; margin-top: 14px; }
+  .card .desc { color: var(--muted); font-size: 14.5px; margin-top: 12px; flex: 1; }
+  .card .nums { display: flex; gap: 28px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--border); }
+  .card .n .v { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; }
+  .card .n .l { font-size: 12px; color: var(--faint); margin-top: 4px; }
+  .card .go { margin-top: 24px; font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; }
+  .card .go .arrow { transition: transform .15s ease; }
+  .card:hover .go .arrow { transform: translateX(4px); }
+
+  /* comparison */
+  .cmp { padding: 16px 0 8px; border-top: 1px solid var(--border); }
+  .cmp-head { margin-bottom: 36px; }
+  .cmp-head h2 { font-size: clamp(24px, 4vw, 34px); font-weight: 600; letter-spacing: -0.025em; margin-top: 12px; }
+  .cmp-head p { color: var(--muted); margin-top: 14px; max-width: 60ch; font-size: 15px; }
+
+  .cmp-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .cmp-table th, .cmp-table td { padding: 16px 22px; text-align: right; font-size: 15px; border-top: 1px solid var(--border); }
+  .cmp-table thead th { border-top: none; background: var(--gray-1); }
+  .cmp-table th:first-child, .cmp-table td:first-child { text-align: left; color: var(--muted); font-weight: 400; }
+  .cmp-table thead th:first-child { color: var(--faint); font-family: 'Geist Mono', monospace; font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; }
+  .cmp-table thead th { font-weight: 600; font-size: 14px; }
+  .cmp-table .tool { display: block; font-family: 'Geist Mono', monospace; font-size: 10.5px; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; font-weight: 400; margin-top: 2px; }
+  .cmp-table td.val { font-weight: 600; }
+  .cmp-table .win { position: relative; }
+  .cmp-table .win::after { content: "best"; font-family:'Geist Mono',monospace; font-size: 9px; color: var(--bg); background: var(--fg); padding: 1px 5px; border-radius: 4px; margin-left: 8px; vertical-align: middle; letter-spacing: .04em; }
+  .cmp-table .tie td.val { color: var(--muted); font-weight: 500; }
+
+  .cmp-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+  .cbox { border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+  .cbox .ct { font-size: 13.5px; font-weight: 600; }
+  .cbox .cs { font-family:'Geist Mono',monospace; font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; margin-top: 3px; }
+  .cbox .cwrap { position: relative; height: 150px; margin-top: 14px; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 22px; }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .legend i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+
+  .takeaway { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 26px; padding: 22px 24px; background: var(--fg); color: var(--bg); border-radius: 14px; }
+  .takeaway .t { font-size: 14px; display: inline-flex; align-items: baseline; gap: 8px; }
+  .takeaway .t b { font-size: 19px; font-weight: 600; }
+  .takeaway .t .lbl { color: rgba(255,255,255,.6); }
+
+  footer { padding: 40px 0 90px; color: var(--faint); font-size: 13px; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--fg); }
+
+  @media (max-width: 720px) { .cards { grid-template-columns: 1fr; } .cmp-charts { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="tagline">
+      <span class="dot"></span>
+      <span class="eyebrow">agents-analysis · token value reports</span>
+    </div>
+    <h1>What is your $200 AI plan really worth?</h1>
+    <p class="lede">Real-usage breakdowns of subscription value versus official API pricing - the price per token with the plan vs without, and the monthly value it returns.</p>
+  </header>
+
+  <div class="cards">
+    <a class="card" href="codex-max20/Codex-Max20-report.html">
+      <span class="tool">OpenAI · Codex</span>
+      <h2>Codex $200 Plan</h2>
+      <p class="desc">One real week of usage priced at GPT-5.5 API rates. 2.54B tokens, effective at 2.3% of list.</p>
+      <div class="nums num">
+        <div class="n"><div class="v">$8,610</div><div class="l">value / month</div></div>
+        <div class="n"><div class="v">43×</div><div class="l">multiplier</div></div>
+        <div class="n"><div class="v">2.3%</div><div class="l">of API price</div></div>
+      </div>
+      <span class="go">View report <span class="arrow">→</span></span>
+    </a>
+
+    <a class="card" href="claude-max20/Claude-Max20-report.html">
+      <span class="tool">Anthropic · Claude</span>
+      <h2>Claude Max 20x</h2>
+      <p class="desc">Monthly value and ~23.3B tokens extrapolated from real logs at Opus 4.7 rates, triangulated across plans.</p>
+      <div class="nums num">
+        <div class="n"><div class="v">$18,883</div><div class="l">value / month</div></div>
+        <div class="n"><div class="v">94×</div><div class="l">multiplier</div></div>
+        <div class="n"><div class="v">1.06%</div><div class="l">of API price</div></div>
+      </div>
+      <span class="go">View report <span class="arrow">→</span></span>
+    </a>
+  </div>
+
+  <a class="card" href="real-analysis.html" style="border-color:var(--fg); margin-bottom:8px;">
+    <span class="tool">★ Methodology audit · read this first</span>
+    <h2>Wait - is this comparison even fair?</h2>
+    <p class="desc">Strip away cache overhead and the real output is a tie ($977 vs $911/mo). The "2× value" is mostly cache-write pricing and a one-day ×10 extrapolation. The full proof, with charts and a reproduce script.</p>
+    <span class="go">Read the real analysis <span class="arrow">→</span></span>
+  </a>
+
+  <section class="cmp">
+    <div class="cmp-head">
+      <span class="eyebrow">Head to head</span>
+      <h2>Both cost $200. What do you get?</h2>
+      <p>Same monthly price, same API baseline approach. Here is how the Codex $200 plan and Claude Max 20x compare on value and price per token, monthly at 100% of quota.</p>
+    </div>
+
+    <table class="cmp-table num">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Codex<span class="tool">OpenAI · $200</span></th>
+          <th>Claude Max 20x<span class="tool">Anthropic · $200</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tie">
+          <td>Subscription price</td>
+          <td class="val">$200 / mo</td>
+          <td class="val">$200 / mo</td>
+        </tr>
+        <tr>
+          <td>Monthly API-equivalent value</td>
+          <td class="val">$8,610</td>
+          <td class="val win">$18,883</td>
+        </tr>
+        <tr>
+          <td>Value multiplier</td>
+          <td class="val">43×</td>
+          <td class="val win">94×</td>
+        </tr>
+        <tr>
+          <td>Effective price (% of API list)</td>
+          <td class="val">2.3%</td>
+          <td class="val win">1.06%</td>
+        </tr>
+        <tr>
+          <td>Tokens per month</td>
+          <td class="val">~11.1B</td>
+          <td class="val win">~23.3B</td>
+        </tr>
+        <tr>
+          <td>You pay per 1M tokens</td>
+          <td class="val">$0.0180</td>
+          <td class="val win">$0.0086</td>
+        </tr>
+        <tr>
+          <td>API value per 1M tokens</td>
+          <td class="val">$0.78</td>
+          <td class="val">$0.81</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="cmp-charts">
+      <div class="cbox">
+        <div class="ct">Monthly value for your $200</div>
+        <div class="cs">API-equivalent, USD</div>
+        <div class="cwrap"><canvas id="valueCmp"></canvas></div>
+      </div>
+      <div class="cbox">
+        <div class="ct">Tokens for your $200</div>
+        <div class="cs">Per month, billions</div>
+        <div class="cwrap"><canvas id="tokenCmp"></canvas></div>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i style="background:#999"></i> Codex $200</span>
+      <span><i style="background:#000"></i> Claude Max 20x $200</span>
+    </div>
+
+    <div class="takeaway num">
+      <div class="t"><b>2.2×</b><span class="lbl">more value</span></div>
+      <div class="t"><b>2.1×</b><span class="lbl">more tokens</span></div>
+      <div class="t"><b>½</b><span class="lbl">the cost per token</span></div>
+      <div class="t" style="flex:1;justify-content:flex-end"><span class="lbl" style="font-size:12.5px;max-width:34ch;text-align:right;line-height:1.4">For the same $200, Claude Max 20x stretches further - though its figure is extrapolated from 10% usage, vs Codex measured near 100%.</span></div>
+    </div>
+  </section>
+
+  <footer>
+    Generated from <span class="mono">result/*/*/data.json</span> · API-equivalent value is not the provider's real cost. ·
+    <a href="https://github.com/Melvynx/agents-analysis">github.com/Melvynx/agents-analysis</a>
+  </footer>
+
+  <script>
+    Chart.defaults.font.family = "Geist, system-ui, sans-serif";
+    Chart.defaults.color = "#999999";
+    Chart.defaults.font.size = 12;
+    const GRID = "#eaeaea";
+    const baseOpts = (fmt) => ({
+      indexAxis: "y", responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: "#000", padding: 10, cornerRadius: 8, callbacks: { label: (c) => fmt(c.parsed.x) } } },
+      scales: {
+        x: { grid: { color: GRID }, border: { display: false }, ticks: { callback: fmt } },
+        y: { grid: { display: false }, border: { color: GRID }, ticks: { font: { family: "Geist Mono", size: 11 } } }
+      }
+    });
+    new Chart(document.getElementById("valueCmp"), {
+      type: "bar",
+      data: { labels: ["Codex", "Claude 20x"], datasets: [{ data: [8610, 18883], backgroundColor: ["#999", "#000"], borderRadius: 6, barPercentage: 0.62 }] },
+      options: baseOpts((v) => "$" + (v/1000) + "k")
+    });
+    new Chart(document.getElementById("tokenCmp"), {
+      type: "bar",
+      data: { labels: ["Codex", "Claude 20x"], datasets: [{ data: [11.1, 23.3], backgroundColor: ["#999", "#000"], borderRadius: 6, barPercentage: 0.62 }] },
+      options: baseOpts((v) => v + "B")
+    });
+  </script>
+
+</div>
+</body>
+</html>

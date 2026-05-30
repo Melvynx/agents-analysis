@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0",
+  "analysis_run": {
+    "id": "2026-05-30T09-09-21Z",
+    "created_at": "2026-05-30T09:09:21Z",
+    "output_directory_name": "2026-05-30T09-09-21Z"
+  },
+  "contributor": {
+    "github_username": "melvynx"
+  },
+  "tool": "codex",
+  "subscription": {
+    "actual_subscription_used": "OpenAI Pro $200/month",
+    "monthly_price_usd": 200.0,
+    "weekly_price_usd": 46.15384615384616
+  },
+  "weekly_limit": {
+    "used_percent": 99.0,
+    "used_percent_source": "user_ui_1_percent_remaining",
+    "limit_start_at": "2026-05-23T21:14:00Z",
+    "limit_end_at": "2026-05-30T23:14:00+02:00"
+  },
+  "measurement_window": {
+    "start_at": "2026-05-23T21:14:00Z",
+    "end_at": "2026-05-30T09:09:21Z"
+  },
+  "api_pricing": {
+    "provider": "openai",
+    "model_baseline": "gpt-5.5",
+    "currency": "USD",
+    "per_1m_tokens": {
+      "input": 5.0,
+      "cached_input": 0.5,
+      "output": 30.0
+    },
+    "pricing_checked_at": "2026-05-30"
+  },
+  "usage": {
+    "sessions": 380,
+    "token_events": 20865,
+    "input_tokens": 2501922691,
+    "cached_input_tokens": 2396803968,
+    "uncached_input_tokens": 105118723,
+    "output_tokens": 7371732,
+    "reasoning_output_tokens": 2506734,
+    "total_tokens": 2511548469
+  },
+  "cost_breakdown_usd": {
+    "uncached_input": 525.593615,
+    "cached_input": 1198.401984,
+    "output": 221.15196,
+    "local_total": 1945.147559,
+    "extra_costs": {},
+    "measured_total_api_equivalent": 1945.147559,
+    "weekly_api_value_at_100_percent": 1964.7955141414142,
+    "monthly_api_value_at_100_percent": 8514.113894279727
+  },
+  "effective_prices": {
+    "effective_api_ratio": 0.023490229885057472,
+    "effective_api_percent": 2.349022988505747,
+    "non_fast_per_1m_tokens_usd": {
+      "input": 0.11745114942528736,
+      "cached_input": 0.011745114942528736,
+      "output": 0.7047068965517241
+    }
+  },
+  "sources_counted": [
+    {
+      "machine": "local",
+      "path": "~/.codex"
+    },
+    {
+      "machine": "local",
+      "path": "~/.aiblueprint (Codex backups)",
+      "in_window_backup_sessions": 28,
+      "duplicate_token_events_skipped": 1213,
+      "extra_token_events_counted": 9,
+      "notes": "Backups deduplicated against ~/.codex; only 9 token events were unique and added to the totals."
+    },
+    {
+      "machine": "ssh steveclaw",
+      "path": "/root/.codex"
+    }
+  ],
+  "extra_agent_stores_checked": [
+    {
+      "machine": "ssh steveclaw",
+      "path": "/root/.hermes",
+      "in_window_messages": 2304,
+      "assistant_messages_with_codex_reasoning_items": 789,
+      "priced": false,
+      "api_equivalent_cost_usd": 0.0,
+      "notes": "Hermes carried in-window Codex reasoning items but no usable usage token objects, so it could not be priced and is excluded from the totals."
+    }
+  ],
+  "assumptions": [
+    "API-equivalent value is not OpenAI's real cost.",
+    "GPT-5.5 official API pricing is used as the baseline.",
+    "Codex token totals are summed from last_token_usage to avoid cumulative double counting.",
+    "Local ~/.aiblueprint Codex backups were deduplicated against ~/.codex; only unique token events were added.",
+    "Remote steveclaw ~/.hermes activity was found in-window but contained no usable usage token objects, so it was not priced."
+  ]
+}

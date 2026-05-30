@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Claude Max 20x · $200 Plan · Token Value</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #000000;
+    --gray-1: #fafafa; --gray-2: #f2f2f2;
+    --border: #eaeaea; --border-2: #e0e0e0;
+    --muted: #666666; --faint: #999999;
+    --accent-2: #999999; --accent-3: #d4d4d4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Geist', -apple-system, system-ui, sans-serif;
+    background: var(--bg); color: var(--fg); line-height: 1.5;
+    -webkit-font-smoothing: antialiased; font-feature-settings: "cv01","cv02","ss01";
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+  .num { font-variant-numeric: tabular-nums; }
+  .eyebrow { font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); }
+
+  /* top nav */
+  .topnav { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--border); }
+  .topnav a { color: var(--muted); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 7px; }
+  .topnav a:hover { color: var(--fg); }
+  .topnav .right { display: flex; gap: 20px; }
+  .topnav .active { color: var(--fg); font-weight: 600; }
+
+  header { padding: 72px 0 56px; border-bottom: 1px solid var(--border); }
+  .tagline { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+  .tagline .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--fg); }
+  h1 { font-size: clamp(32px, 5.5vw, 56px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.04; max-width: 17ch; }
+  h1 .muted2 { color: var(--faint); }
+  .lede { color: var(--muted); font-size: clamp(15px, 2vw, 18px); margin-top: 22px; max-width: 58ch; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
+  .stat { padding: 36px 28px; border-right: 1px solid var(--border); }
+  .stat:last-child { border-right: none; }
+  .stat .k { font-family: 'Geist Mono', monospace; font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint); }
+  .stat .v { font-size: 40px; font-weight: 600; letter-spacing: -0.03em; margin-top: 14px; line-height: 1; }
+  .stat .v .u { font-size: 16px; color: var(--faint); font-weight: 500; letter-spacing: 0; }
+  .stat .d { font-size: 13px; color: var(--muted); margin-top: 12px; }
+
+  section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+  .sec-head { margin-bottom: 40px; }
+  .sec-head h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 600; letter-spacing: -0.025em; margin-top: 14px; }
+  .sec-head p { color: var(--muted); margin-top: 14px; max-width: 66ch; font-size: 15px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .panel { border: 1px solid var(--border); border-radius: 12px; padding: 24px; background: var(--bg); }
+  .panel .ptitle { font-size: 14px; font-weight: 600; }
+  .panel .psub { font-family:'Geist Mono',monospace; font-size: 11.5px; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; margin-top: 4px; }
+  .chart-box { position: relative; height: 320px; margin-top: 16px; }
+  .chart-box.sm { height: 270px; }
+
+  .plist { width: 100%; border-collapse: collapse; }
+  .plist th { text-align: right; font-family:'Geist Mono',monospace; font-weight: 500; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint); padding-bottom: 16px; }
+  .plist th:first-child { text-align: left; }
+  .plist td { padding: 15px 0; border-top: 1px solid var(--border); font-size: 15px; text-align: right; }
+  .plist td:first-child { text-align: left; font-weight: 500; }
+  .plist tr:first-child td { border-top: none; }
+  .plist .without { color: var(--faint); text-decoration: line-through; text-decoration-thickness: 1px; }
+  .plist .with { font-weight: 600; }
+  .plist .save { font-family:'Geist Mono',monospace; font-size: 13px; color: var(--fg); }
+
+  .note { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--border); font-size: 14px; color: var(--muted); }
+  .note b { color: var(--fg); font-weight: 600; }
+
+  .legend { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 18px; }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .legend i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+
+  /* token table */
+  .ttable { width: 100%; border-collapse: collapse; }
+  .ttable th { font-family:'Geist Mono',monospace; font-weight: 500; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint); text-align: right; padding: 22px 24px 16px; }
+  .ttable th:first-child { text-align: left; }
+  .ttable td { padding: 18px 24px; border-top: 1px solid var(--border); font-size: 15px; text-align: right; vertical-align: middle; }
+  .ttable td:first-child { text-align: left; font-weight: 500; }
+  .ttable .rate { color: var(--muted); font-family:'Geist Mono',monospace; font-size: 13px; }
+  .ttable .tok .big { display: block; font-weight: 500; }
+  .ttable .tok .sub { display: block; font-family:'Geist Mono',monospace; font-size: 11px; color: var(--faint); margin-top: 3px; }
+  .ttable .total td { border-top: 1.5px solid var(--border-2); font-weight: 600; }
+  .bar-cell { display: flex; align-items: center; gap: 12px; justify-content: flex-end; }
+  .vbar { flex: 1; max-width: 130px; height: 6px; background: var(--gray-2); border-radius: 3px; overflow: hidden; }
+  .vbar span { display: block; height: 100%; border-radius: 3px; }
+  .pct { font-family:'Geist Mono',monospace; font-size: 12.5px; width: 46px; text-align: right; }
+
+  .facts { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .fact { padding: 32px 24px; border-right: 1px solid var(--border); }
+  .fact:last-child { border-right: none; }
+  .fact .v { font-size: 34px; font-weight: 600; letter-spacing: -0.03em; }
+  .fact .k { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+  .band { display: flex; gap: 10px; align-items: baseline; margin-top: 18px; padding: 16px 18px; background: var(--gray-1); border: 1px solid var(--border); border-radius: 10px; }
+  .band .big { font-size: 22px; font-weight: 600; }
+  .band .lbl { font-family:'Geist Mono',monospace; font-size: 11.5px; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; }
+
+  footer { padding: 56px 0 90px; }
+  footer .eyebrow { margin-bottom: 22px; display: block; }
+  footer ul { list-style: none; display: grid; gap: 14px; max-width: 80ch; }
+  footer li { font-size: 14px; color: var(--muted); padding-left: 22px; position: relative; }
+  footer li::before { content: ""; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; background: var(--border-2); border-radius: 50%; }
+  footer li .mono { color: var(--fg); }
+  footer .sig { margin-top: 34px; font-size: 13px; color: var(--faint); }
+
+  @media (max-width: 860px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--border); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .facts { grid-template-columns: 1fr 1fr; }
+    .fact:nth-child(2) { border-right: none; }
+    .fact:nth-child(1), .fact:nth-child(2) { border-bottom: 1px solid var(--border); }
+  }
+  @media (max-width: 480px) {
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topnav">
+    <a href="../index.html">← All reports</a>
+    <div class="right">
+      <a href="../codex-max20/Codex-Max20-report.html">Codex $200</a>
+      <a class="active" href="#">Claude Max 20x</a>
+      <a href="../real-analysis.html">Real analysis</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="tagline">
+      <span class="dot"></span>
+      <span class="eyebrow">Anthropic · Claude Max 20x · $200 / mo</span>
+    </div>
+    <h1>Your $200 Claude plan is worth <span class="muted2">~$18,900/month</span> of API work.</h1>
+    <p class="lede">Monthly value and token volume you can expect on Max 20x, extrapolated from real usage logs and cross-checked against the $20 and $100 plans. Priced at Claude Opus 4.7 API rates.</p>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats num">
+    <div class="stat">
+      <div class="k">You pay</div>
+      <div class="v">$200<span class="u"> /mo</span></div>
+      <div class="d">≈ $46.15 per weekly window</div>
+    </div>
+    <div class="stat">
+      <div class="k">API-equivalent value</div>
+      <div class="v">$18,883<span class="u"> /mo</span></div>
+      <div class="d">~$19k-$22k triangulated</div>
+    </div>
+    <div class="stat">
+      <div class="k">Value multiplier</div>
+      <div class="v">94×</div>
+      <div class="d">Return on the subscription</div>
+    </div>
+    <div class="stat">
+      <div class="k">Effective price</div>
+      <div class="v">1.06%</div>
+      <div class="d">of official Opus 4.7 pricing</div>
+    </div>
+  </div>
+
+  <!-- PRICE -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Price per token</span>
+      <h2>With the subscription vs. without</h2>
+      <p>Every token runs against your flat $200 fee. Priced at Anthropic's public Claude Opus 4.7 rates, here's what the same tokens would cost on the raw API versus what they effectively cost you.</p>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="ptitle">USD per 1M tokens · Opus 4.7</div>
+        <div class="psub">Log scale</div>
+        <div class="chart-box">
+          <canvas id="priceChart"></canvas>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--accent-3)"></i> Without sub (API list)</span>
+          <span><i style="background:var(--fg)"></i> With sub (effective)</span>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ptitle">The numbers</div>
+        <div class="psub">Per 1M tokens · Opus 4.7</div>
+        <table class="plist num" style="margin-top:18px">
+          <thead>
+            <tr><th>Token type</th><th>Without</th><th>With sub</th><th>Save</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Input</td><td class="without">$5.00</td><td class="with">$0.053</td><td class="save">98.9%</td></tr>
+            <tr><td>Cache write 5m</td><td class="without">$6.25</td><td class="with">$0.066</td><td class="save">98.9%</td></tr>
+            <tr><td>Cache write 1h</td><td class="without">$10.00</td><td class="with">$0.106</td><td class="save">98.9%</td></tr>
+            <tr><td>Cache read</td><td class="without">$0.50</td><td class="with">$0.0053</td><td class="save">98.9%</td></tr>
+            <tr><td>Output</td><td class="without">$25.00</td><td class="with">$0.265</td><td class="save">98.9%</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Output tokens listed at <b>$25 / 1M</b> on the API effectively cost <b>$0.27 / 1M</b> on the plan - about <b>94× cheaper</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOKENS BEHIND VALUE -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">Tokens behind the value</span>
+      <h2>~23.3 billion tokens a month</h2>
+      <p>Extrapolated to 100% of the weekly quota across a month. Cache reads dominate the count; the smaller slices of cache writes and output carry most of the API value.</p>
+    </div>
+    <div class="panel" style="padding:0; overflow-x:auto">
+      <table class="ttable num">
+        <thead>
+          <tr><th>Token type</th><th>Monthly tokens</th><th>API rate</th><th>API value</th><th>Share of value</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cache read</td>
+            <td class="tok"><span class="big">22.6B</span><span class="sub">97.0% of volume</span></td>
+            <td class="rate">$0.50 / 1M</td>
+            <td>$11,319</td>
+            <td><div class="bar-cell"><div class="vbar"><span style="width:59.9%;background:var(--fg)"></span></div><span class="pct">59.9%</span></div></td>
+          </tr>
+          <tr>
+            <td>Cache write (1h + 5m)</td>
+            <td class="tok"><span class="big">666M</span><span class="sub">2.9% of volume</span></td>
+            <td class="rate">$10.00 / 1M</td>
+            <td>$6,660</td>
+            <td><div class="bar-cell"><div class="vbar"><span style="width:35.3%;background:var(--accent-2)"></span></div><span class="pct">35.3%</span></div></td>
+          </tr>
+          <tr>
+            <td>Output</td>
+            <td class="tok"><span class="big">36.4M</span><span class="sub">0.16% of volume</span></td>
+            <td class="rate">$25.00 / 1M</td>
+            <td>$911</td>
+            <td><div class="bar-cell"><div class="vbar"><span style="width:4.8%;background:var(--accent-3)"></span></div><span class="pct">4.8%</span></div></td>
+          </tr>
+          <tr>
+            <td>Input (uncached)</td>
+            <td class="tok"><span class="big">104K</span><span class="sub">0.0% of volume</span></td>
+            <td class="rate">$5.00 / 1M</td>
+            <td>$1</td>
+            <td><div class="bar-cell"><div class="vbar"><span style="width:0.5%;background:var(--accent-3)"></span></div><span class="pct">0.0%</span></div></td>
+          </tr>
+          <tr class="total">
+            <td>Total</td>
+            <td class="tok"><span class="big">~23.3B</span></td>
+            <td class="rate">-</td>
+            <td>$18,883</td>
+            <td><div class="bar-cell"><div class="vbar"><span style="width:100%;background:var(--border-2)"></span></div><span class="pct">100%</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="border-top:none;padding-top:16px">Cache reads are <b>97%</b> of the tokens but <b>60%</b> of the value; 1-hour cache writes are under <b>3%</b> of tokens yet <b>35%</b> of value - they list at $10/1M.</p>
+  </section>
+
+  <!-- TRIANGULATION -->
+  <section>
+    <div class="sec-head">
+      <span class="eyebrow">How we know</span>
+      <h2>Three estimates, one answer</h2>
+      <p>The direct Max 20x sample was measured at only 10% quota, so it's cross-checked against the $100 (4× the quota) and $20 (20× the quota) plans. All three converge.</p>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="ptitle">Monthly value estimate for Max 20x</div>
+        <div class="psub">By method</div>
+        <div class="chart-box sm">
+          <canvas id="triChart"></canvas>
+        </div>
+        <div class="band">
+          <span class="lbl">Consensus</span>
+          <span class="big num">$19k - $22k</span>
+          <span class="lbl">per month</span>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ptitle">Plan ladder</div>
+        <div class="psub">Monthly API-equivalent value at 100% quota</div>
+        <div class="chart-box sm">
+          <canvas id="planChart"></canvas>
+        </div>
+        <p class="note">Pro $20 returns ~$1,088/mo; Max 5x $100 returns ~$5,273/mo; Max 20x $200 returns ~$18,883/mo of value.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREAKDOWN -->
+  <section>
+    <div class="grid-2">
+      <div class="panel">
+        <div class="ptitle">Value breakdown</div>
+        <div class="psub">Monthly, by token type</div>
+        <div class="chart-box sm">
+          <canvas id="breakdownChart"></canvas>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ptitle">Direct sample (taka-foo)</div>
+        <div class="psub">Measured, then extrapolated</div>
+        <table class="plist num" style="margin-top:18px">
+          <tbody>
+            <tr><td>Quota used</td><td class="with">10%</td></tr>
+            <tr><td>Measured window</td><td class="with">~1 day</td></tr>
+            <tr><td>Measured value</td><td class="with">$435.76</td></tr>
+            <tr><td>Weekly value @100%</td><td class="with">$4,357.59</td></tr>
+            <tr><td>Monthly value @100%</td><td class="with">$18,882.87</td></tr>
+            <tr><td>Extrapolation factor</td><td class="with mono">×43.3</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Factor = (1 / 0.10) × (52 / 12 weeks). The ×10 step is the main source of uncertainty - triangulation is what anchors the range.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACTS -->
+  <section style="border-bottom:none">
+    <div class="sec-head">
+      <span class="eyebrow">The raw numbers</span>
+      <h2>Max 20x at a glance</h2>
+    </div>
+    <div class="facts num">
+      <div class="fact"><div class="v">23.3B</div><div class="k">Monthly tokens (100% quota)</div></div>
+      <div class="fact"><div class="v">97%</div><div class="k">Cache reads</div></div>
+      <div class="fact"><div class="v">5.39B</div><div class="k">Tokens per week</div></div>
+      <div class="fact"><div class="v">$18,883</div><div class="k">Monthly API value</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="eyebrow">How this is calculated</span>
+    <ul>
+      <li>API-equivalent value prices real token counts at Claude Opus 4.7 public rates: <span class="mono">$5</span> input · <span class="mono">$0.50</span> cache read · <span class="mono">$10</span> cache write 1h · <span class="mono">$25</span> output, per 1M tokens.</li>
+      <li>The direct figure extrapolates a ~1-day window at 10% quota: factor <span class="mono">(1/0.10) × (52/12) ≈ 43.3</span> to reach monthly at 100% quota. The ×10 step carries real uncertainty.</li>
+      <li>Triangulation: Max 20x = 4× the Max 5x quota and 20× the Pro quota. Scaling those samples gives <span class="mono">$21.1k</span> and <span class="mono">$21.8k</span>/mo, bracketing the direct <span class="mono">$18.9k</span>.</li>
+      <li>Usage is Opus-heavy; a Sonnet/Haiku-heavy month values lower at API rates. API-equivalent value is not Anthropic's real cost. Source: <span class="mono">result/taka-foo/claude/data.json</span>.</li>
+    </ul>
+    <div class="sig">Claude Max 20x · Token Value Report · generated from agents-analysis data.</div>
+  </footer>
+
+</div>
+
+<script>
+  Chart.defaults.font.family = "Geist, system-ui, sans-serif";
+  Chart.defaults.color = "#999999";
+  Chart.defaults.font.size = 12;
+  const FG = "#000000", G1 = "#999999", G2 = "#d4d4d4", GRID = "#eaeaea";
+  const fmtUSD = (v) => "$" + v.toLocaleString("en-US", { maximumFractionDigits: v < 1 ? 4 : 0 });
+
+  // 1. PRICE (opus, log scale)
+  new Chart(document.getElementById("priceChart"), {
+    type: "bar",
+    data: {
+      labels: ["Input", "Write 5m", "Write 1h", "Cache read", "Output"],
+      datasets: [
+        { label: "Without sub", data: [5.0, 6.25, 10.0, 0.5, 25.0], backgroundColor: G2, borderRadius: 4, barPercentage: 0.74, categoryPercentage: 0.72 },
+        { label: "With sub", data: [0.053, 0.066, 0.106, 0.0053, 0.265], backgroundColor: FG, borderRadius: 4, barPercentage: 0.74, categoryPercentage: 0.72 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { backgroundColor: "#000", padding: 10, cornerRadius: 8, callbacks: { label: (c) => c.dataset.label + ": $" + c.parsed.y + " / 1M" } }
+      },
+      scales: {
+        x: { grid: { display: false }, border: { color: GRID }, ticks: { font: { family: "Geist Mono", size: 11 } } },
+        y: { type: "logarithmic", grid: { color: GRID }, border: { display: false },
+             ticks: { callback: (v) => ([0.01,0.1,1,10,25].includes(v) ? "$"+v : "") } }
+      }
+    }
+  });
+
+  // 2. TRIANGULATION
+  new Chart(document.getElementById("triChart"), {
+    type: "bar",
+    data: {
+      labels: ["Direct (Max 20x)", "Via Max 5x ×4", "Via Pro ×20"],
+      datasets: [{ data: [18883, 21094, 21768], backgroundColor: [FG, G1, G1], borderRadius: 6, barPercentage: 0.6 }]
+    },
+    options: {
+      indexAxis: "y", responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: "#000", padding: 10, cornerRadius: 8, callbacks: { label: (c) => fmtUSD(c.parsed.x) + " / mo" } } },
+      scales: {
+        x: { grid: { color: GRID }, border: { display: false }, ticks: { callback: (v) => "$"+(v/1000)+"k" }, max: 24000 },
+        y: { grid: { display: false }, border: { color: GRID }, ticks: { font: { family: "Geist Mono", size: 12 } } }
+      }
+    }
+  });
+
+  // 3. PLAN ladder
+  new Chart(document.getElementById("planChart"), {
+    type: "bar",
+    data: {
+      labels: ["$20 Pro", "$100 Max 5x", "$200 Max 20x"],
+      datasets: [{ data: [1088, 5273, 18883], backgroundColor: [G2, G1, FG], borderRadius: 6, barPercentage: 0.6 }]
+    },
+    options: {
+      indexAxis: "y", responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { backgroundColor: "#000", padding: 10, cornerRadius: 8, callbacks: { label: (c) => fmtUSD(c.parsed.x) + " / mo value" } } },
+      scales: {
+        x: { grid: { color: GRID }, border: { display: false }, ticks: { callback: (v) => "$"+(v/1000)+"k" } },
+        y: { grid: { display: false }, border: { color: GRID }, ticks: { font: { family: "Geist Mono", size: 12 } } }
+      }
+    }
+  });
+
+  // 4. VALUE breakdown doughnut
+  new Chart(document.getElementById("breakdownChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["Cache read", "Cache write", "Output"],
+      datasets: [{ data: [11319, 6660, 911], backgroundColor: [FG, G1, G2], borderColor: "#fff", borderWidth: 3, hoverOffset: 6 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: "64%",
+      plugins: {
+        legend: { position: "bottom", labels: { padding: 16, boxWidth: 10, boxHeight: 10, usePointStyle: true, pointStyle: "circle", color: "#666" } },
+        tooltip: { backgroundColor: "#000", padding: 10, cornerRadius: 8, callbacks: { label: (c) => c.label + ": " + fmtUSD(c.parsed) + " / mo" } }
+      }
+    }
+  });
+</script>
+</body>
+</html>

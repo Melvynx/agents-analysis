@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "contributor": {
+    "github_username": "melvynx"
+  },
+  "tool": "codex",
+  "subscription": {
+    "actual_subscription_used": "OpenAI Pro $200/month",
+    "monthly_price_usd": 200.0,
+    "weekly_price_usd": 46.15384615384616
+  },
+  "weekly_limit": {
+    "used_percent": 44.0,
+    "used_percent_source": "codex_rate_limit_secondary_max_observed",
+    "observed_max_secondary_used_percent": 46.0,
+    "observed_last_secondary_used_percent": 46.0,
+    "limit_start_at": "2026-05-23T21:14:45Z",
+    "limit_end_at": "2026-05-30T23:14:45+02:00"
+  },
+  "measurement_window": {
+    "start_at": "2026-05-23T21:14:45Z",
+    "end_at": "2026-05-26T20:34:35.291499Z"
+  },
+  "api_pricing": {
+    "provider": "openai",
+    "model_baseline": "gpt-5.5",
+    "currency": "USD",
+    "per_1m_tokens": {
+      "input": 5.0,
+      "cached_input": 0.5,
+      "output": 30.0
+    },
+    "pricing_checked_at": "2026-05-26"
+  },
+  "usage": {
+    "files_scanned": 1143,
+    "sessions": 121,
+    "events": 65582,
+    "token_events": 11733,
+    "input_tokens": 1474598886,
+    "cached_input_tokens": 1419044352,
+    "uncached_input_tokens": 55554534,
+    "output_tokens": 4240783,
+    "reasoning_output_tokens": 1418670,
+    "total_tokens": 1480268469
+  },
+  "cost_breakdown_usd": {
+    "uncached_input": 277.77267,
+    "cached_input": 709.522176,
+    "output": 127.22349000000001,
+    "local_total": 1114.518336,
+    "extra_costs": {
+      "steveclaw_hermes_adjusted": 60.2682,
+      "steveclaw_codex": 0.53
+    },
+    "measured_total_api_equivalent": 1175.316536,
+    "weekly_api_value_at_100_percent": 2671.1739454545454,
+    "monthly_api_value_at_100_percent": 11575.087096969695
+  },
+  "effective_prices": {
+    "effective_api_ratio": 0.017278487697285586,
+    "effective_api_percent": 1.7278487697285585,
+    "non_fast_per_1m_tokens_usd": {
+      "input": 0.08639243848642793,
+      "cached_input": 0.008639243848642793,
+      "output": 0.5183546309185676
+    }
+  },
+  "errors": {
+    "tool_outputs": 14841,
+    "failed_tool_outputs": 789,
+    "tool_command_error_rate_approx_percent": 5.316353345461896,
+    "assistant_messages": 2574,
+    "assistant_api_error_messages": 0,
+    "model_api_error_rate_approx_percent": 0.0
+  },
+  "assumptions": [
+    "API-equivalent value is not OpenAI's real cost.",
+    "GPT-5.5 official API pricing is used as the baseline.",
+    "Codex token totals are summed from last_token_usage to avoid cumulative double counting."
+  ]
+}

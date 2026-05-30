@@ -8,14 +8,14 @@ The useful comparison is not "how much did the provider spend?" The useful compa
 
 ## Result Path
 
-Create one folder per GitHub username and tool:
+Create one folder per GitHub username, tool, and analysis run:
 
 ```text
-result/<github-username>/codex/
-result/<github-username>/claude/
+result/<github-username>/codex/<analysis-timestamp>/
+result/<github-username>/claude/<analysis-timestamp>/
 ```
 
-Each tool folder should contain:
+Each analysis folder should contain:
 
 ```text
 data.json
@@ -25,15 +25,19 @@ analysis.md
 Example:
 
 ```text
-result/melvynx/codex/data.json
-result/melvynx/codex/analysis.md
-result/melvynx/claude/data.json
-result/melvynx/claude/analysis.md
+result/melvynx/codex/2026-05-30T21-14-45Z/data.json
+result/melvynx/codex/2026-05-30T21-14-45Z/analysis.md
+result/melvynx/claude/2026-05-30T21-14-45Z/data.json
+result/melvynx/claude/2026-05-30T21-14-45Z/analysis.md
 ```
+
+Use the measurement end time in UTC for `<analysis-timestamp>`, formatted like `YYYY-MM-DDTHH-MM-SSZ`. This lets one contributor publish multiple analyses during the same weekly quota window.
 
 ## Start By Asking The User
 
-Before cloning, parsing logs, or running scripts, ask the contributor for the small set of data that makes the analysis reproducible.
+Before cloning, parsing logs, running scripts, or creating a branch, ask the contributor for the small set of data that makes the analysis reproducible.
+
+Do not start the contribution until every required value is known. If any required value is missing, stop and ask for it. Do not guess missing subscription prices, usage percentages, reset dates, or timezones.
 
 Ask these questions first:
 
@@ -50,6 +54,19 @@ Ask these questions first:
 ```
 
 The user should be involved at the beginning because the local logs do not reliably contain subscription tier, monthly price, or Claude weekly usage percentage.
+
+Required preflight checklist:
+
+- GitHub username is known.
+- Selected tool is known: `codex`, `claude`, or both.
+- Subscription name is known for every selected tool.
+- Monthly subscription price in USD is known for every selected tool.
+- Weekly usage percentage is known for every selected tool.
+- Exact weekly limit end/reset date is known for every selected tool.
+- Timezone for every reset date is known.
+- Remote machines or extra agent stores are either listed or explicitly marked as none.
+
+If one item is missing, the only allowed next step is to ask the contributor for the missing item.
 
 ## Then Fork And Clone
 
@@ -80,12 +97,12 @@ git checkout -b add-<github-username>-analysis
 
 5. Run the analysis prompt or helper scripts using the user's answers.
 6. Show the generated summary to the user before committing, especially subscription name, weekly end date, used percentage, and monthly extrapolation.
-7. Commit only your result files under `result/<github-username>/<tool>/`.
+7. Commit only your result files under `result/<github-username>/<tool>/<analysis-timestamp>/`.
 8. Push your branch to your fork and open a pull request back to `Melvynx/agents-analysis`.
 
 ## Required Inputs
 
-Before running the analysis, collect these values from the product UI:
+Before running the analysis, collect these values from the product UI. These are hard requirements, not optional context:
 
 - Which subscription you actually use, for example `OpenAI Pro $200/month` or `Claude Max $100/month`.
 - Weekly usage percentage, for example `43% used`.
@@ -93,7 +110,7 @@ Before running the analysis, collect these values from the product UI:
 - Timezone of that reset date.
 - Whether you want to calculate `codex`, `claude`, or both.
 
-The weekly limit end date is critical. Without it, the agent cannot know the exact 7-day window. In most cases:
+The weekly usage percentage and weekly limit end date are critical. Without them, the agent cannot calculate the extrapolated weekly value or know the exact 7-day window. In most cases:
 
 ```text
 weekly_window_start = weekly_limit_end_date - 7 days
@@ -105,7 +122,7 @@ weekly_window_end = now, or the explicit measurement end date
 - Do not commit raw `.codex` or `.claude` logs.
 - Do not commit private prompts or assistant messages.
 - Commit aggregate data only.
-- Add your result under `result/<github-username>/<tool>/`.
+- Add your result under `result/<github-username>/<tool>/<analysis-timestamp>/`.
 - If you include local paths, make sure they are safe to publish.
 - If API prices were not verified live, mark them as assumptions.
 
@@ -116,7 +133,7 @@ Use this prompt with an agent that can read your local filesystem and browse cur
 ```text
 You are a usage and cost analyst. Calculate the effective token price per 1M tokens of my Codex and/or Claude subscription from my local `.codex` and `.claude` folders, then create contribution files for an open source repository.
 
-Before doing any filesystem scan or calculation, ask me for the contributor data if I have not already provided it. Keep the questions short and collect:
+Before doing any filesystem scan, clone, branch creation, or calculation, ask me for the contributor data if I have not already provided it. Keep the questions short and collect:
 - GitHub username
 - tool to calculate: codex, claude, or both
 - subscription actually used
@@ -124,6 +141,14 @@ Before doing any filesystem scan or calculation, ask me for the contributor data
 - weekly usage percentage shown in the UI
 - exact weekly limit end/reset date with timezone
 - optional remote machines or extra agent stores to include
+
+Hard stop:
+- Do not start the contribution until every required value is known.
+- If the weekly usage percentage is missing, ask for it and stop.
+- If the weekly limit end/reset date or timezone is missing, ask for it and stop.
+- If the monthly subscription price is missing, ask for it and stop.
+- If the selected tool is missing, ask for it and stop.
+- Do not infer missing values from logs.
 
 I want to calculate: <codex | claude | both>
 My GitHub username is: <github-username>
@@ -141,16 +166,19 @@ Important:
 - For Anthropic, verify Claude Opus input, cache write 5m, cache write 1h, cache read, and output prices.
 - If prices cannot be verified, clearly mark the pricing as an assumption.
 - The weekly limit end date is required. Use it to calculate the start of the 7-day window.
+- Set `<analysis-timestamp>` to the measurement end time in UTC, formatted like `YYYY-MM-DDTHH-MM-SSZ`.
+- Missing required user data blocks the contribution. Ask for the missing value instead of proceeding.
 - Do not publish raw conversation logs.
 - Do not publish private prompts, assistant messages, secrets, or raw tool outputs.
 
 Create:
-- `result/<github-username>/codex/data.json` if Codex is selected.
-- `result/<github-username>/codex/analysis.md` if Codex is selected.
-- `result/<github-username>/claude/data.json` if Claude is selected.
-- `result/<github-username>/claude/analysis.md` if Claude is selected.
+- `result/<github-username>/codex/<analysis-timestamp>/data.json` if Codex is selected.
+- `result/<github-username>/codex/<analysis-timestamp>/analysis.md` if Codex is selected.
+- `result/<github-username>/claude/<analysis-timestamp>/data.json` if Claude is selected.
+- `result/<github-username>/claude/<analysis-timestamp>/analysis.md` if Claude is selected.
 
 The `data.json` file must include:
+- analysis run id and created timestamp
 - contributor GitHub username
 - tool name
 - subscription actually used
@@ -226,7 +254,9 @@ Open a pull request with only the new result files.
 Before opening a PR, check:
 
 - The result path uses your GitHub username.
+- The result path includes a timestamped analysis folder with date and time.
 - The weekly limit end date is present.
+- The analysis run id and created timestamp are present.
 - The measurement start and end dates are present.
 - The monthly extrapolation is present.
 - The subscription actually used is present.
@@ -265,5 +295,7 @@ scripts/analyze_claude.py \
 ```
 
 The scripts output JSON to stdout and write `data.json` plus `analysis.md` when `--output-dir` is provided.
+
+When `--output-dir` points to `result/<github-username>/<tool>`, the scripts create the timestamped child folder automatically. Pass `--analysis-id YYYY-MM-DDTHH-MM-SSZ` only when you need to reproduce a specific folder name.
 
 For Codex, `--extra-cost label=value` can be used to include additional API-equivalent costs from a remote machine or another agent log store.

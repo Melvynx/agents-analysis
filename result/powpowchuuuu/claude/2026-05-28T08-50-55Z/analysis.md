@@ -1,4 +1,4 @@
-# Claude Effective Token Price, powpowchuuuu
+# Claude Effective Token Price, powpowchuuuu, 2026-05-28T08-50-55Z
 
 ## Summary
 
@@ -10,6 +10,7 @@ Extrapolated to 100% of the weekly quota, the API-equivalent value is about **$1
 
 ## Window
 
+- Analysis run: `2026-05-28T08:50:55.124137Z`
 - Measurement start: `2026-05-21T11:50:00Z`
 - Measurement end: `2026-05-28T08:50:55.124137Z`
 - Weekly limit end: `2026-05-28T13:50:00+02:00`

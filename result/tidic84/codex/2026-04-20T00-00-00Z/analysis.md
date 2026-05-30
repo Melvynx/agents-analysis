@@ -1,4 +1,4 @@
-# Codex Effective Token Price, tidic84
+# Codex Effective Token Price, tidic84, 2026-04-20T00-00-00Z
 
 ## Summary
 
@@ -10,6 +10,7 @@ Extrapolated to 100% of the weekly quota, the API-equivalent value is about **\$
 
 ## Window
 
+- Analysis run: `2026-04-20T00:00:00Z`
 - Measurement start: `2026-04-13T00:00:00Z`
 - Measurement end: `2026-04-20T00:00:00Z`
 - Weekly limit end: `2026-04-20T00:00:00+00:00`
