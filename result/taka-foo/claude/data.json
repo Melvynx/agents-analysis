@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0",
+  "contributor": {
+    "github_username": "taka-foo"
+  },
+  "tool": "claude",
+  "subscription": {
+    "actual_subscription_used": "Claude Max 20x $200/month",
+    "monthly_price_usd": 200.0,
+    "weekly_price_usd": 46.15384615384616
+  },
+  "weekly_limit": {
+    "all_models_used_percent": 10.0,
+    "used_percent_source": "user_ui",
+    "limit_start_at": "2026-05-29T09:00:00Z",
+    "limit_end_at": "2026-06-05T11:00:00+02:00"
+  },
+  "measurement_window": {
+    "start_at": "2026-05-29T09:00:00Z",
+    "end_at": "2026-05-30T09:48:37.043066Z"
+  },
+  "api_pricing": {
+    "provider": "anthropic",
+    "model_baseline": "claude-opus-4.7",
+    "pricing_checked_at": "2026-05-30",
+    "currency": "USD",
+    "per_1m_tokens": {
+      "opus": {
+        "input": 5.0,
+        "cache_write_5m": 6.25,
+        "cache_write_1h": 10.0,
+        "cache_read": 0.5,
+        "output": 25.0
+      },
+      "sonnet": {
+        "input": 3.0,
+        "cache_write_5m": 3.75,
+        "cache_write_1h": 6.0,
+        "cache_read": 0.3,
+        "output": 15.0
+      },
+      "haiku": {
+        "input": 1.0,
+        "cache_write_5m": 1.25,
+        "cache_write_1h": 2.0,
+        "cache_read": 0.1,
+        "output": 5.0
+      }
+    }
+  },
+  "usage": {
+    "files_scanned": 935,
+    "sessions": 2,
+    "raw_assistant_usage_events": 2121,
+    "deduped_assistant_requests": 1086,
+    "duplicates_skipped": 1035,
+    "requests_by_model": {
+      "claude-opus-4-7": 1080,
+      "claude-haiku-4-5-20251001": 5,
+      "<synthetic>": 1
+    },
+    "requests_by_family": {
+      "opus": 1080,
+      "haiku": 5,
+      "synthetic": 1
+    },
+    "tokens": {
+      "input_tokens": 2408,
+      "cache_creation_input_tokens": 15379200,
+      "cache_write_5m_tokens": 23942,
+      "cache_write_1h_tokens": 15355258,
+      "cache_read_input_tokens": 522404329,
+      "output_tokens": 840770
+    }
+  },
+  "cost_breakdown_usd": {
+    "by_model": {
+      "claude-opus-4-7": 435.7142095000002,
+      "claude-haiku-4-5-20251001": 0.0442925,
+      "<synthetic>": 0.0
+    },
+    "by_family": {
+      "opus": 435.7142095000002,
+      "haiku": 0.0442925,
+      "synthetic": 0.0
+    },
+    "measured_total_api_equivalent": 435.7585020000002,
+    "weekly_api_value_at_100_percent": 4357.585020000001,
+    "monthly_api_value_at_100_percent": 18882.868420000006
+  },
+  "effective_prices": {
+    "effective_api_ratio": 0.010591611165820958,
+    "effective_api_percent": 1.0591611165820958,
+    "opus_non_fast_per_1m_tokens_usd": {
+      "input": 0.05295805582910479,
+      "cache_write_5m": 0.06619756978638099,
+      "cache_write_1h": 0.10591611165820958,
+      "cache_read": 0.005295805582910479,
+      "output": 0.26479027914552394
+    }
+  },
+  "errors": {
+    "synthetic_requests": 1,
+    "synthetic_request_rate_percent": 0.09208103130755065,
+    "synthetic_api_error_requests": 1,
+    "api_error_rate_approx_percent": 0.09208103130755065
+  },
+  "assumptions": [
+    "API-equivalent value is not Anthropic's real cost.",
+    "Assistant usage rows are deduplicated by requestId when available.",
+    "Claude usage percentage is not stored in local logs and usually must come from the UI."
+  ]
+}
