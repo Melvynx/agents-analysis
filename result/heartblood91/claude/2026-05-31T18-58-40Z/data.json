@@ -1,0 +1,242 @@
+{
+  "schema_version": "1.0",
+  "analysis_run": {
+    "id": "2026-05-31T18-58-40Z",
+    "created_at": "2026-05-31T18:58:40.515687Z",
+    "output_directory_name": "2026-05-31T18-58-40Z"
+  },
+  "contributor": {
+    "github_username": "heartblood91"
+  },
+  "tool": "claude",
+  "subscription": {
+    "actual_subscription_used": "Claude Max 20x ($200/month)",
+    "monthly_price_usd": 200.0,
+    "weekly_price_usd": 46.15384615384615
+  },
+  "api_pricing": {
+    "provider": "anthropic",
+    "model_baseline": "claude-opus-4.7",
+    "pricing_checked_at": "2026-05-31",
+    "currency": "USD",
+    "per_1m_tokens": {
+      "opus": {
+        "input": 5.0,
+        "cache_write_5m": 6.25,
+        "cache_write_1h": 10.0,
+        "cache_read": 0.5,
+        "output": 25.0
+      },
+      "sonnet": {
+        "input": 3.0,
+        "cache_write_5m": 3.75,
+        "cache_write_1h": 6.0,
+        "cache_read": 0.3,
+        "output": 15.0
+      },
+      "haiku": {
+        "input": 1.0,
+        "cache_write_5m": 1.25,
+        "cache_write_1h": 2.0,
+        "cache_read": 0.1,
+        "output": 5.0
+      }
+    }
+  },
+  "headline": {
+    "method": "measured_calendar_window_reset_independent",
+    "note": "This is the reset-proof figure: total API-equivalent cost of all usage over a fixed calendar window, divided by what the subscription actually cost over the same window. No quota-percentage or extrapolation involved.",
+    "window": "last_30_days",
+    "window_start_at": "2026-05-01T18:58:40.515687Z",
+    "window_end_at": "2026-05-31T18:58:40.515687Z",
+    "measured_api_equivalent_usd": 6129.41,
+    "subscription_cost_usd": 200.0,
+    "value_ratio_x": 30.6,
+    "effective_percent_of_api_pricing": 3.26,
+    "deduped_requests": 20069,
+    "total_tokens": 8053256770
+  },
+  "current_week_snapshot": {
+    "all_models_used_percent": 38.0,
+    "used_percent_source": "user_ui",
+    "midweek_grace_resets_this_week": 2,
+    "measurement_window": {
+      "start_at": "2026-05-25T18:59:00Z",
+      "end_at": "2026-05-31T18:58:40.515687Z"
+    },
+    "weekly_limit_nominal_end_at": "2026-06-01T20:59:00+02:00",
+    "measured_api_equivalent_usd": 1977.26,
+    "extrapolation_reliability": "UNRELIABLE",
+    "extrapolation_warning": "Anthropic granted 2 mid-week grace resets, so the 38% reflects only usage since the LAST reset while the measured window spans the full week since Monday. The 100%-extrapolation below is therefore an UPPER BOUND and is almost certainly overstated. Do not treat it as the headline figure; use the reset-proof 30-day measured ratio instead.",
+    "weekly_api_value_at_100_percent_UPPER_BOUND": 5203.32,
+    "monthly_api_value_at_100_percent_UPPER_BOUND": 22547.71,
+    "sessions": 19,
+    "raw_assistant_usage_events": 14088,
+    "deduped_assistant_requests": 6159,
+    "duplicates_skipped": 7914,
+    "synthetic_skipped": 15,
+    "cost_by_model": {
+      "claude-opus-4-8": 485.06,
+      "claude-opus-4-7": 1484.87,
+      "claude-haiku-4-5-20251001": 5.82,
+      "claude-sonnet-4-6": 1.51
+    },
+    "tokens": {
+      "input_tokens": 1956185,
+      "output_tokens": 6755604,
+      "cache_read_input_tokens": 2349961319,
+      "cache_write_5m_tokens": 6079606,
+      "cache_write_1h_tokens": 60990856,
+      "cache_creation_input_tokens": 67054540
+    }
+  },
+  "weekly_history": [
+    {
+      "week_start_mon_2059_cest": "2026-02-23",
+      "measured_api_equivalent_usd": 282.48,
+      "deduped_requests": 5024,
+      "total_tokens": 430257088,
+      "measured_vs_weekly_sub_ratio_x": 6.1,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-03-02",
+      "measured_api_equivalent_usd": 136.29,
+      "deduped_requests": 1866,
+      "total_tokens": 190354376,
+      "measured_vs_weekly_sub_ratio_x": 3.0,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-03-09",
+      "measured_api_equivalent_usd": 292.89,
+      "deduped_requests": 2551,
+      "total_tokens": 455786663,
+      "measured_vs_weekly_sub_ratio_x": 6.3,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-03-16",
+      "measured_api_equivalent_usd": 1200.45,
+      "deduped_requests": 5435,
+      "total_tokens": 1494498717,
+      "measured_vs_weekly_sub_ratio_x": 26.0,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-03-23",
+      "measured_api_equivalent_usd": 534.7,
+      "deduped_requests": 1398,
+      "total_tokens": 595075707,
+      "measured_vs_weekly_sub_ratio_x": 11.6,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-03-30",
+      "measured_api_equivalent_usd": 547.05,
+      "deduped_requests": 2245,
+      "total_tokens": 897553126,
+      "measured_vs_weekly_sub_ratio_x": 11.9,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-04-06",
+      "measured_api_equivalent_usd": 825.88,
+      "deduped_requests": 2997,
+      "total_tokens": 1212196299,
+      "measured_vs_weekly_sub_ratio_x": 17.9,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-04-13",
+      "measured_api_equivalent_usd": 1131.4,
+      "deduped_requests": 4431,
+      "total_tokens": 1695668203,
+      "measured_vs_weekly_sub_ratio_x": 24.5,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-04-20",
+      "measured_api_equivalent_usd": 869.67,
+      "deduped_requests": 3279,
+      "total_tokens": 1315686822,
+      "measured_vs_weekly_sub_ratio_x": 18.8,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-04-27",
+      "measured_api_equivalent_usd": 2008.51,
+      "deduped_requests": 6999,
+      "total_tokens": 2974120931,
+      "measured_vs_weekly_sub_ratio_x": 43.5,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-05-04",
+      "measured_api_equivalent_usd": 1101.9,
+      "deduped_requests": 3651,
+      "total_tokens": 1400114377,
+      "measured_vs_weekly_sub_ratio_x": 23.9,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-05-11",
+      "measured_api_equivalent_usd": 725.32,
+      "deduped_requests": 2463,
+      "total_tokens": 913793659,
+      "measured_vs_weekly_sub_ratio_x": 15.7,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-05-18",
+      "measured_api_equivalent_usd": 1591.9,
+      "deduped_requests": 5517,
+      "total_tokens": 2232957967,
+      "measured_vs_weekly_sub_ratio_x": 34.5,
+      "weekly_quota_used_percent": null,
+      "partial": false
+    },
+    {
+      "week_start_mon_2059_cest": "2026-05-25",
+      "measured_api_equivalent_usd": 1977.26,
+      "deduped_requests": 6159,
+      "total_tokens": 2425727648,
+      "measured_vs_weekly_sub_ratio_x": 42.8,
+      "weekly_quota_used_percent": null,
+      "partial": true
+    }
+  ],
+  "weekly_history_note": "Per-week measured API-equivalent is reset-proof and reliable. The weekly quota %% for PAST weeks is not stored in local logs and is unavailable, so weekly_quota_used_percent is null. The contributor recalls roughly 50-80%% on prior weeks; if accurate, per-quota value would be measured/0.5..measured/0.8 -- but this is from memory and is intentionally NOT used as a hard figure here.",
+  "codex_note": {
+    "status": "deferred",
+    "plan": "OpenAI Plus ($20/month)",
+    "current_week_used_percent": 0,
+    "weekly_resets_at": "2026-06-06T20:24:00Z",
+    "weekly_resets_at_local": "Sat 2026-06-06 22:24 CEST",
+    "reason": "The bulk of Codex usage runs on a remote machine (hermes) whose ~/.codex store is not present locally; local-only measurement (~$27 last week) is unrepresentative. A combined Codex report will follow after the Jun 6 weekly reset."
+  },
+  "caveats": [
+    "API-equivalent value is what the official API would have charged for the same usage; it is NOT Anthropic's real cost.",
+    "2 mid-week grace resets occurred this week, so the current-week 38% does not align with the full measured week. The 100%-extrapolation is an upper bound only.",
+    "The reliable, reset-proof figure is the 30-day measured API-equivalent spend vs the subscription cost over the same period (the headline block).",
+    "Weekly quota percentages for past weeks are not stored locally and are unavailable; prior-week extrapolations are intentionally omitted.",
+    "Assistant usage rows are deduplicated by requestId (fallback message.id). Synthetic Claude Code messages are excluded from cost.",
+    "All usage is local to a single machine (no remote Claude usage)."
+  ],
+  "follow_up": {
+    "claude_clean_week_pr": "planned for Mon 2026-06-08 (full clean week snapshot)",
+    "codex_pr": "planned after the Codex weekly reset on Sat 2026-06-06"
+  }
+}
