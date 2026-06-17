@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "analysis_run": {
+    "id": "2026-06-16T15-58-31Z",
+    "created_at": "2026-06-16T15:58:31Z",
+    "output_directory_name": "2026-06-16T15-58-31Z"
+  },
+  "contributor": {
+    "github_username": "jouzep"
+  },
+  "tool": "codex",
+  "subscription": {
+    "actual_subscription_used": "ChatGPT Pro $200/month",
+    "monthly_price_usd": 200.0,
+    "weekly_price_usd": 46.15384615384616
+  },
+  "weekly_limit": {
+    "used_percent": 97.0,
+    "used_percent_source": "user_ui",
+    "observed_max_secondary_used_percent": 97.0,
+    "observed_last_secondary_used_percent": 97.0,
+    "limit_start_at": "2026-06-09T15:58:31Z",
+    "limit_end_at": "2026-06-16T15:58:31Z"
+  },
+  "measurement_window": {
+    "start_at": "2026-06-09T15:58:31Z",
+    "end_at": "2026-06-16T15:58:31Z"
+  },
+  "api_pricing": {
+    "provider": "openai",
+    "model_baseline": "gpt-5.5",
+    "currency": "USD",
+    "per_1m_tokens": {
+      "input": 5.0,
+      "cached_input": 0.5,
+      "output": 30.0
+    },
+    "pricing_checked_at": "2026-06-17"
+  },
+  "usage": {
+    "files_scanned": 187,
+    "sessions": 86,
+    "events": 50265,
+    "token_events": 6608,
+    "input_tokens": 772215626,
+    "cached_input_tokens": 729337600,
+    "uncached_input_tokens": 42878026,
+    "output_tokens": 3152179,
+    "reasoning_output_tokens": 1194926,
+    "total_tokens": 776320284
+  },
+  "cost_breakdown_usd": {
+    "uncached_input": 214.39013,
+    "cached_input": 364.6688,
+    "output": 94.56537,
+    "local_total": 673.6243,
+    "extra_costs": {},
+    "measured_total_api_equivalent": 673.6243,
+    "weekly_api_value_at_100_percent": 694.4580412371133,
+    "monthly_api_value_at_100_percent": 3009.3181786941577
+  },
+  "effective_prices": {
+    "effective_api_ratio": 0.06646023721120331,
+    "effective_api_percent": 6.646023721120331,
+    "non_fast_per_1m_tokens_usd": {
+      "input": 0.33230118605601655,
+      "cached_input": 0.033230118605601655,
+      "output": 1.9938071163360993
+    }
+  },
+  "errors": {
+    "tool_outputs": 10718,
+    "failed_tool_outputs": 424,
+    "tool_command_error_rate_approx_percent": 3.955961933196492,
+    "assistant_messages": 4871,
+    "assistant_api_error_messages": 1,
+    "model_api_error_rate_approx_percent": 0.020529665366454525
+  },
+  "assumptions": [
+    "API-equivalent value is not OpenAI's real cost.",
+    "GPT-5.5 official API pricing is used as the baseline.",
+    "Codex token totals are summed from last_token_usage to avoid cumulative double counting."
+  ]
+}
